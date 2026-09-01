@@ -136,9 +136,23 @@
   .role li{margin-bottom:6px}
   .role li strong{color:var(--text);font-weight:600}
 
-  .grid{display:grid;gap:16px}
-  .g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-  .g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  /* Six tracks, two per card, so a short last row can stretch to fill instead of
+     leaving a hole. Card counts then never have to be a multiple of the columns. */
+  .grid{display:grid;gap:16px;grid-template-columns:1fr}
+  @media (min-width:560px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .grid>*{grid-column:span 1}
+    .grid>*:last-child:nth-child(odd){grid-column:span 2}
+  }
+  @media (min-width:900px){
+    .grid{grid-template-columns:repeat(6,1fr)}
+    .grid>*{grid-column:span 2}
+    /* one orphan on the last row: take the whole width */
+    .grid>*:last-child:nth-child(3n+1){grid-column:span 6}
+    /* two orphans: half each */
+    .grid>*:nth-last-child(2):nth-child(3n+1),
+    .grid>*:last-child:nth-child(3n+2){grid-column:span 3}
+  }
 
   .card{
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
@@ -341,6 +355,12 @@
 
 
   /* ---------- toolkit ---------- */
+  .kit-h{font-size:.82rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+    margin:34px 0 12px;padding-top:16px;border-top:1px solid var(--line);font-weight:700}
+  .kit-h:first-of-type{margin-top:6px}
+  .kit-h span{display:block;text-transform:none;letter-spacing:normal;font-weight:400;
+    font-size:.9rem;margin-top:4px;color:var(--muted);opacity:.85}
+
   .tool-d{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);
     margin:0 0 14px;overflow:hidden}
   .tool-d>summary{cursor:pointer;padding:15px 18px;list-style:none;display:flex;flex-wrap:wrap;
@@ -563,7 +583,8 @@
     .gloss{border-bottom:0;color:inherit}
     .tag,.pill{border-color:#bbb;color:#333;background:#fff}
     *:focus,*:focus-visible{outline:none!important}
-    .g2,.g3{grid-template-columns:1fr 1fr}
+    .grid,.g2,.g3{grid-template-columns:1fr 1fr!important}
+    .grid>*{grid-column:auto!important}
     .grid{gap:8pt}
     .card{padding:9pt 10pt;gap:4pt}
     .card p{font-size:9.5pt}
@@ -612,7 +633,7 @@
     body.print-brief .card p{font-size:8.3pt}
     body.print-brief .card h3,body.print-brief .card h4{font-size:8.9pt}
     body.print-brief .grid{gap:4pt}
-    body.print-brief .g3{grid-template-columns:repeat(4,1fr)}
+    body.print-brief .g3,body.print-brief .grid.g3{grid-template-columns:repeat(4,1fr)!important}
     body.print-brief .role{margin-bottom:6pt;padding-left:9pt}
     body.print-brief .role .when{font-size:8.2pt;margin-bottom:1pt}
     body.print-brief .role h3{font-size:9.6pt;margin-bottom:0}
@@ -929,6 +950,11 @@
       <h2>Everyday utilities</h2>
       <p class="sub">Tools that each do one job well. Free unless the badge says otherwise.</p>
       <div class="grid g3">
+        <div class="card">
+          <div class="top"><h3><a href="https://www.7-zip.org/" rel="noopener">7-Zip</a></h3></div>
+          <p>The archiver worth having instead of whatever the operating system came with. Packs 7z, zip, tar, gzip and xz, and opens almost everything else including rar, iso and dmg. The detail that matters if you are sending something sensitive: AES-256 in the <span class="mono">.7z</span> format can encrypt the file names as well as the contents, whereas an encrypted zip still leaves the list of what is inside readable to anyone who opens it.</p>
+          <div class="tags"><span class="tag">Windows</span><span class="tag">Open source</span><span class="tag">AES-256</span></div>
+        </div>
 
         <div class="card">
           <div class="top"><h3><a href="https://www.voidtools.com/everything-1.5/" rel="noopener">Everything 1.5</a></h3><span class="pill alt">Beta</span></div>
@@ -937,24 +963,24 @@
         </div>
 
         <div class="card">
-          <div class="top"><h3><a href="https://windirstat.net/" rel="noopener">WinDirStat</a></h3></div>
-          <p>Answers “what is actually eating the drive” in one pass. Every file becomes a rectangle sized by how much space it takes and coloured by type, so a forgotten cache or a stack of old disk images shows up as an obvious slab rather than something you would ever find by opening folders. Worth knowing the 2.x line is a genuine rewrite: the old 1.1.2 build sat untouched for well over a decade.</p>
-          <div class="tags"><span class="tag">Windows</span><span class="tag">Open source</span><span class="tag">GPLv2</span></div>
+          <div class="top"><h3><a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a></h3></div>
+          <p>The universal media converter. Re-encoding, remuxing, trimming and format conversion for video and audio, scripted rather than clicked.</p>
+          <div class="tags"><span class="tag">CLI</span><span class="tag">Open source</span></div>
         </div>
 
         <div class="card">
-          <div class="top"><h3><a href="https://www.ccleaner.com/recuva" rel="noopener">Recuva</a></h3><span class="pill ghost">Free / Pro</span></div>
-          <p>File recovery for Windows. Scans a drive, memory card or USB stick for deleted entries and restores what is still intact. The deep-scan mode is the one worth waiting for. First thing I reach for when someone empties a recycle bin they shouldn’t have — the golden rule being to stop writing to the drive immediately.</p>
-          <div class="tags"><span class="tag">Windows</span><span class="tag">Recovery</span><span class="tag">Piriform</span></div>
+          <div class="top"><h3><a href="https://picard.musicbrainz.org/" rel="noopener">MusicBrainz Picard</a></h3></div>
+          <p>Fixes the metadata on a music library and then files it properly. The part that earns its place is AcoustID fingerprinting: it identifies a track from the sound itself, so a folder of files called <span class="mono">track01.mp3</span> with no tags at all still comes back correctly named. Tagging rules are scriptable, so the folder structure comes out the way you want it rather than the way the tool prefers.</p>
+          <div class="tags"><span class="tag">Cross-platform</span><span class="tag">Open source</span><span class="tag">GPLv2+</span></div>
         </div>
 
         <div class="card">
-          <div class="top"><h3><a href="https://www.7-zip.org/" rel="noopener">7-Zip</a></h3></div>
-          <p>The archiver worth having instead of whatever the operating system came with. Packs 7z, zip, tar, gzip and xz, and opens almost everything else including rar, iso and dmg. The detail that matters if you are sending something sensitive: AES-256 in the <span class="mono">.7z</span> format can encrypt the file names as well as the contents, whereas an encrypted zip still leaves the list of what is inside readable to anyone who opens it.</p>
-          <div class="tags"><span class="tag">Windows</span><span class="tag">Open source</span><span class="tag">AES-256</span></div>
+          <div class="top"><h3><a href="https://www.ocenaudio.com/" rel="noopener">Ocenaudio</a></h3></div>
+          <p>An audio editor that opens instantly and stays usable, which sounds like faint praise until you have waited on something heavier to load a single file you wanted to trim. Waveform and spectral views, and it keeps responding while long operations run in the background rather than freezing on you. Windows, macOS and Linux, free to use.</p>
+          <div class="tags"><span class="tag">Cross-platform</span><span class="tag">Free</span><span class="tag">Audio</span></div>
         </div>
 
-                        <div class="card">
+        <div class="card">
           <div class="top"><h3><a href="https://www.python.org/" rel="noopener">Python</a></h3><span class="pill">Daily</span></div>
           <p>What the tools further down this page are built with. Free, cross-platform, and well enough documented that a problem can usually be worked out from the manual and a lot of trial and error.</p>
           <div class="tags"><span class="tag">Cross-platform</span><span class="tag">Open source</span></div>
@@ -967,9 +993,9 @@
         </div>
 
         <div class="card">
-          <div class="top"><h3><a href="https://ffmpeg.org/" rel="noopener">FFmpeg</a></h3></div>
-          <p>The universal media converter. Re-encoding, remuxing, trimming and format conversion for video and audio, scripted rather than clicked.</p>
-          <div class="tags"><span class="tag">CLI</span><span class="tag">Open source</span></div>
+          <div class="top"><h3><a href="https://www.ccleaner.com/recuva" rel="noopener">Recuva</a></h3><span class="pill ghost">Free / Pro</span></div>
+          <p>File recovery for Windows. Scans a drive, memory card or USB stick for deleted entries and restores what is still intact. The deep-scan mode is the one worth waiting for. First thing I reach for when someone empties a recycle bin they shouldn’t have — the golden rule being to stop writing to the drive immediately.</p>
+          <div class="tags"><span class="tag">Windows</span><span class="tag">Recovery</span><span class="tag">Piriform</span></div>
         </div>
 
         <div class="card">
@@ -979,21 +1005,21 @@
         </div>
 
         <div class="card">
-          <div class="top"><h3><a href="https://www.ocenaudio.com/" rel="noopener">Ocenaudio</a></h3></div>
-          <p>An audio editor that opens instantly and stays usable, which sounds like faint praise until you have waited on something heavier to load a single file you wanted to trim. Waveform and spectral views, and it keeps responding while long operations run in the background rather than freezing on you. Windows, macOS and Linux, free to use.</p>
-          <div class="tags"><span class="tag">Cross-platform</span><span class="tag">Free</span><span class="tag">Audio</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top"><h3><a href="https://picard.musicbrainz.org/" rel="noopener">MusicBrainz Picard</a></h3></div>
-          <p>Fixes the metadata on a music library and then files it properly. The part that earns its place is AcoustID fingerprinting: it identifies a track from the sound itself, so a folder of files called <span class="mono">track01.mp3</span> with no tags at all still comes back correctly named. Tagging rules are scriptable, so the folder structure comes out the way you want it rather than the way the tool prefers.</p>
-          <div class="tags"><span class="tag">Cross-platform</span><span class="tag">Open source</span><span class="tag">GPLv2+</span></div>
-        </div>
-
-        <div class="card">
           <div class="top"><h3><a href="https://github.com/tesseract-ocr/tesseract" rel="noopener">Tesseract OCR</a></h3></div>
           <p>Open-source optical character recognition. The engine inside my OCR PDF Converter, turning scanned documents into searchable, editable text.</p>
           <div class="tags"><span class="tag">OCR</span><span class="tag">Open source</span></div>
+        </div>
+
+        <div class="card">
+          <div class="top"><h3><a href="https://code.visualstudio.com/" rel="noopener">Visual Studio Code</a></h3></div>
+          <p>Where the scripts on this page get written, and where this site was edited. Free, cross-platform, and with the Live Preview extension it renders an HTML file in a pane beside the source as you type. Worth knowing the licensing has two layers: the source is MIT-licensed as Code&nbsp;–&nbsp;OSS, while Microsoft’s own build adds branding and telemetry under its own terms.</p>
+          <div class="tags"><span class="tag">Cross-platform</span><span class="tag">Free</span><span class="tag">Microsoft</span></div>
+        </div>
+
+        <div class="card">
+          <div class="top"><h3><a href="https://windirstat.net/" rel="noopener">WinDirStat</a></h3></div>
+          <p>Answers “what is actually eating the drive” in one pass. Every file becomes a rectangle sized by how much space it takes and coloured by type, so a forgotten cache or a stack of old disk images shows up as an obvious slab rather than something you would ever find by opening folders. Worth knowing the 2.x line is a genuine rewrite: the old 1.1.2 build sat untouched for well over a decade.</p>
+          <div class="tags"><span class="tag">Windows</span><span class="tag">Open source</span><span class="tag">GPLv2</span></div>
         </div>
 
       </div>
@@ -1004,29 +1030,16 @@
       <h2>Tools I’ve built</h2>
       <p class="sub">Made for my own use, worked out through research and trial and error rather than any formal training. They do useful jobs and I understand what they do — but I’d describe myself as someone who solves problems with software, not a developer. Source is on GitHub, AI collaboration and all; happy to talk through any of it.</p>
       <div class="grid g3">
+        <div class="card">
+          <div class="top"><h3>Apple Books PDF pipeline</h3><span class="pill">Mac &amp; Windows</span></div>
+          <p>Converts folders of images into PDFs that read properly in Apple Books, splitting long pages and merging in chunks so large volumes complete reliably.</p>
+          <div class="tags"><span class="tag">Python</span></div>
+        </div>
 
         <div class="card">
           <div class="top"><h3><a href="https://github.com/Lowther117/ebay-deal-hunter" rel="noopener">eBay Deal Hunter</a></h3><span class="pill">Mac &amp; Windows</span></div>
           <p>Searches eBay UK for working items priced below the going rate, scoring each result against the median price of comparable live listings and filtering out broken and parts-only listings. UK-only, and runs entirely on the local machine.</p>
           <div class="tags"><span class="tag">Python</span><span class="tag">eBay API</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top"><h3><a href="https://github.com/Lowther117/ocr-pdf-converter" rel="noopener">OCR PDF Converter</a></h3><span class="pill">macOS</span></div>
-          <p>Batch-converts scanned PDFs into searchable Word documents or plain text using OCR, with some image preprocessing to improve accuracy on poor-quality scans.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">Tesseract OCR</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top"><h3><a href="https://github.com/Lowther117/site-harvester" rel="noopener">Site Harvester</a></h3><span class="pill">macOS</span></div>
-          <p>Crawls a site to a chosen depth and saves the images, documents and other files it finds into sorted folders, or the pages visited as a single PDF with a clickable contents page. Built for archiving sites I run or have permission to copy — a crawler is not a licence, and the robots file and the terms are part of the job.</p>
-          <div class="tags"><span class="tag">Python</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top"><h3>Apple Books PDF pipeline</h3></div>
-          <p>Converts folders of images into PDFs that read properly in Apple Books, splitting long pages and merging in chunks so large volumes complete reliably.</p>
-          <div class="tags"><span class="tag">Python</span></div>
         </div>
 
         <div class="card">
@@ -1041,6 +1054,18 @@
           <div class="tags"><span class="tag">Hobby project</span></div>
         </div>
 
+        <div class="card">
+          <div class="top"><h3><a href="https://github.com/Lowther117/ocr-pdf-converter" rel="noopener">OCR PDF Converter</a></h3><span class="pill">macOS</span></div>
+          <p>Batch-converts scanned PDFs into searchable Word documents or plain text using OCR, with some image preprocessing to improve accuracy on poor-quality scans.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Tesseract OCR</span></div>
+        </div>
+
+        <div class="card">
+          <div class="top"><h3><a href="https://github.com/Lowther117/site-harvester" rel="noopener">Site Harvester</a></h3><span class="pill">macOS</span></div>
+          <p>Crawls a site to a chosen depth and saves the images, documents and other files it finds into sorted folders, or the pages visited as a single PDF with a clickable contents page. Built for archiving sites I run or have permission to copy — a crawler is not a licence, and the robots file and the terms are part of the job.</p>
+          <div class="tags"><span class="tag">Python</span></div>
+        </div>
+
       </div>
     </section>
 
@@ -1048,17 +1073,16 @@
       <h2>Scripts &amp; automation</h2>
       <p class="sub">Windows batch and Robocopy utilities I use for backup and file handling. Each is commented with the reasoning behind it, so someone else can pick it up and adjust it.</p>
       <div class="grid g2">
+        <div class="card">
+          <div class="top"><h3>Backup Users to External</h3><span class="pill">Batch</span></div>
+          <p>Copies the whole user profile tree to whichever external drive the script is run from, stamped with the machine name and run time so repeat backups never overwrite each other. Excludes cache and temporary folders, and reports genuine failures rather than Robocopy’s routine exit codes.</p>
+          <div class="tags"><span class="tag">Batch</span><span class="tag">Robocopy</span><span class="tag">Long paths</span></div>
+        </div>
 
         <div class="card">
           <div class="top"><h3>Drag and Drop Copy</h3><span class="pill">Batch</span></div>
           <p>Drop any number of files or folders onto the script and it copies each one into a timestamped folder, filtered through an exclusion list for caches, build folders and other clutter. Handles large multi-item drops and awkward filenames that trip up a simpler script.</p>
           <div class="tags"><span class="tag">Batch</span><span class="tag">Robocopy</span><span class="tag">PowerShell</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top"><h3>Backup Users to External</h3><span class="pill">Batch</span></div>
-          <p>Copies the whole user profile tree to whichever external drive the script is run from, stamped with the machine name and run time so repeat backups never overwrite each other. Excludes cache and temporary folders, and reports genuine failures rather than Robocopy’s routine exit codes.</p>
-          <div class="tags"><span class="tag">Batch</span><span class="tag">Robocopy</span><span class="tag">Long paths</span></div>
         </div>
 
         <div class="card">
@@ -1112,21 +1136,25 @@
           <p>Lays a customisable colour filter over the entire Windows screen and every application on it — the software equivalent of a coloured overlay sheet. Widely used for visual stress / Scotopic Sensitivity Syndrome and by dyslexic readers, and it takes about a minute to try. Colour and opacity are both adjustable, and there is a portable build as well as an installer — though on a managed work device, put anything new through your own IT and procurement route first. <a href="https://www.east-tec.com/colorveil/download/" rel="noopener">Download</a>.</p>
           <div class="tags"><span class="tag">Windows</span><span class="tag">Dyslexia</span><span class="tag">Visual stress</span><span class="tag">Portable</span></div>
         </div>
-        <div class="card">
-          <div class="top"><h3>Windows Magnifier &amp; Colour filters</h3><span class="pill ghost">Built in</span></div>
-          <p>Windows ships with a screen magnifier (<span class="tag">Win</span> + <span class="tag">+</span>), high-contrast themes, and system-wide colour filters including greyscale and colour-blindness modes. Settings → Accessibility. Already on the machine, so no new software is involved.</p>
-          <div class="tags"><span class="tag">Windows</span><span class="tag">Low vision</span></div>
-        </div>
+
         <div class="card">
           <div class="top"><h3>macOS Zoom, Hover Text &amp; Colour Filters</h3><span class="pill ghost">Built in</span></div>
           <p>The Apple equivalents, under System Settings → Accessibility: screen zoom, enlarged hover text, display tinting, reduced transparency and reduced motion.</p>
           <div class="tags"><span class="tag">macOS</span><span class="tag">Low vision</span></div>
         </div>
+
         <div class="card">
           <div class="top"><h3><a href="https://opendyslexic.org/" rel="noopener">OpenDyslexic</a></h3><span class="pill">Free</span></div>
           <p>Open-source typeface with weighted bottoms designed to reduce letter-swapping. Installs as a system font and has browser extensions to restyle any page. Evidence is mixed and it doesn’t suit everyone — but it costs nothing to test.</p>
           <div class="tags"><span class="tag">Font</span><span class="tag">Dyslexia</span><span class="tag">Cross-platform</span></div>
         </div>
+
+        <div class="card">
+          <div class="top"><h3>Windows Magnifier &amp; Colour filters</h3><span class="pill ghost">Built in</span></div>
+          <p>Windows ships with a screen magnifier (<span class="tag">Win</span> + <span class="tag">+</span>), high-contrast themes, and system-wide colour filters including greyscale and colour-blindness modes. Settings → Accessibility. Already on the machine, so no new software is involved.</p>
+          <div class="tags"><span class="tag">Windows</span><span class="tag">Low vision</span></div>
+        </div>
+
       </div>
     </section>
 
@@ -1134,25 +1162,29 @@
       <h2>Screen readers &amp; text to speech</h2>
       <div class="grid g2">
         <div class="card">
-          <div class="top"><h3><a href="https://www.nvaccess.org/download/" rel="noopener">NVDA</a></h3><span class="pill">Free</span></div>
-          <p>NonVisual Desktop Access — the leading free, open-source Windows screen reader, developed by NV Access. Full braille display support, a portable build, and the tool most commonly used for real-world accessibility testing alongside JAWS. If you are checking whether a site or document actually works for a blind user, this is what you test with.</p>
-          <div class="tags"><span class="tag">Windows</span><span class="tag">Open source</span><span class="tag">Braille</span></div>
-        </div>
-        <div class="card">
-          <div class="top"><h3>Narrator &amp; VoiceOver</h3><span class="pill ghost">Built in</span></div>
-          <p>The screen readers already on the machine — Narrator on Windows (<span class="tag">Win</span> + <span class="tag">Ctrl</span> + <span class="tag">Enter</span>) and VoiceOver on macOS (<span class="tag">Cmd</span> + <span class="tag">F5</span>; on an iPhone, triple-click the side button). Worth knowing even if you don’t use them daily.</p>
-          <div class="tags"><span class="tag">Windows</span><span class="tag">macOS / iOS</span></div>
-        </div>
-        <div class="card">
           <div class="top"><h3><a href="https://www.cross-plus-a.com/balabolka.htm" rel="noopener">Balabolka</a></h3><span class="pill">Free</span></div>
           <p>Text-to-speech reader that will take a document, web page or clipboard contents and read it aloud or export it as an audio file. Useful for proofreading long documents by ear as much as for access.</p>
           <div class="tags"><span class="tag">Windows</span><span class="tag">TTS</span></div>
         </div>
+
         <div class="card">
           <div class="top"><h3><a href="https://www.microsoft.com/en-us/education/products/learning-tools" rel="noopener">Microsoft Immersive Reader</a></h3><span class="pill ghost">Included</span></div>
           <p>Built into Word, OneNote, Edge and Teams. Read-aloud with word highlighting, line focus, syllable splitting, adjustable spacing and a picture dictionary. Already licensed anywhere Microsoft 365 is in use, which makes it one of the easiest to try.</p>
           <div class="tags"><span class="tag">Microsoft 365</span><span class="tag">Reading</span></div>
         </div>
+
+        <div class="card">
+          <div class="top"><h3>Narrator &amp; VoiceOver</h3><span class="pill ghost">Built in</span></div>
+          <p>The screen readers already on the machine — Narrator on Windows (<span class="tag">Win</span> + <span class="tag">Ctrl</span> + <span class="tag">Enter</span>) and VoiceOver on macOS (<span class="tag">Cmd</span> + <span class="tag">F5</span>; on an iPhone, triple-click the side button). Worth knowing even if you don’t use them daily.</p>
+          <div class="tags"><span class="tag">Windows</span><span class="tag">macOS / iOS</span></div>
+        </div>
+
+        <div class="card">
+          <div class="top"><h3><a href="https://www.nvaccess.org/download/" rel="noopener">NVDA</a></h3><span class="pill">Free</span></div>
+          <p>NonVisual Desktop Access — the leading free, open-source Windows screen reader, developed by NV Access. Full braille display support, a portable build, and the tool most commonly used for real-world accessibility testing alongside JAWS. If you are checking whether a site or document actually works for a blind user, this is what you test with.</p>
+          <div class="tags"><span class="tag">Windows</span><span class="tag">Open source</span><span class="tag">Braille</span></div>
+        </div>
+
       </div>
     </section>
 
@@ -1772,8 +1804,22 @@
 
   <div class="wrap">
 
+    <h2 class="kit-h">Spreadsheets <span>the things that go wrong quietly in a workbook</span></h2>
+
     <details class="tool-d">
-      <summary aria-labelledby="tk-excel-formula-explainer"><h2 class="dtitle" id="tk-excel-formula-explainer">Excel formula explainer</h2><span class="dsub">break a formula apart and check it for traps</span><span class="dwhat">Takes the formula apart into a labelled tree, explains every function and numbers every argument, then reviews it for the things that go wrong quietly — unbalanced brackets, approximate lookups that need a sorted column, volatile functions, deeply nested IFs and hardcoded numbers.</span></summary>
+      <summary aria-labelledby="tk-csv-inspector"><h3 class="dtitle" id="tk-csv-inspector">CSV inspector</h3><span class="dsub">what is actually in that file before you import it</span><span class="dwhat">Reads a file in your browser and reports what is actually in each column: the types it detects, blanks, mixed date formats, numbers stored as text, mangled characters from an encoding mismatch, ragged rows and invisible whitespace that breaks lookups.</span></summary>
+      <div class="dbody">
+        <p class="sub">Drop a CSV and get the shape of it: columns, detected types, blanks, duplicate rows, mixed date formats, stray whitespace and the encoding problems that turn an apostrophe into three characters. Read locally; nothing is uploaded.</p>
+        <div id="csvDrop" class="drop">
+          <p><strong>Drop a CSV here</strong>, or</p>
+          <p><label class="btn" for="csvIn">Choose a file</label><input id="csvIn" type="file" accept=".csv,.tsv,text/csv" hidden></p>
+        </div>
+        <div id="csvOut" hidden></div>
+      </div>
+    </details>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-excel-formula-explainer"><h3 class="dtitle" id="tk-excel-formula-explainer">Excel formula explainer</h3><span class="dsub">break a formula apart and check it for traps</span><span class="dwhat">Takes the formula apart into a labelled tree, explains every function and numbers every argument, then reviews it for the things that go wrong quietly — unbalanced brackets, approximate lookups that need a sorted column, volatile functions, deeply nested IFs and hardcoded numbers.</span></summary>
       <div class="dbody">
         <p class="sub">Paste a formula and it is taken apart into its structure, with each function explained and each argument numbered — then reviewed for the things that quietly go wrong: unbalanced brackets, approximate lookups, volatile functions, nested IFs, hardcoded numbers.</p>
         <label class="fld"><span>Formula</span><input type="text" id="fxIn" spellcheck="false" autocomplete="off" placeholder="=IFERROR(VLOOKUP(A2,Data!A:D,3),&quot;not found&quot;)"></label>
@@ -1791,26 +1837,7 @@
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-lookup-builder"><h2 class="dtitle" id="tk-lookup-builder">Lookup builder</h2><span class="dsub">get a correct XLOOKUP, and the INDEX/MATCH fallback</span><span class="dwhat">Answer four questions about what you are looking up and where, and it writes both the XLOOKUP and the INDEX/MATCH that does the same job — with the not-found value handled, and a note on why either beats VLOOKUP.</span></summary>
-      <div class="dbody">
-        <p class="sub">Answer what you are looking for and where, and take away a formula that works — plus the older equivalent for anyone on a version without XLOOKUP.</p>
-        <div class="lk-grid">
-          <label class="fld"><span>The value you are looking up</span><input type="text" id="lkVal" value="A2" spellcheck="false"></label>
-          <label class="fld"><span>Column to search in</span><input type="text" id="lkFind" value="Data!$A:$A" spellcheck="false"></label>
-          <label class="fld"><span>Column to return</span><input type="text" id="lkRet" value="Data!$C:$C" spellcheck="false"></label>
-          <label class="fld"><span>If nothing is found</span><input type="text" id="lkNf" value="not found" spellcheck="false"></label>
-        </div>
-        <div class="a11y-row" style="border-bottom:0">
-          <label class="chk inline"><input type="checkbox" id="lkExact" checked><span>exact match</span></label>
-          <label class="chk inline"><input type="checkbox" id="lkLast"><span>search from the bottom up</span></label>
-          <button type="button" class="btn" id="lkGo">Build</button>
-        </div>
-        <div id="lkOut" hidden class="result"></div>
-      </div>
-    </details>
-
-    <details class="tool-d">
-      <summary aria-labelledby="tk-formula-syntax-converter"><h2 class="dtitle" id="tk-formula-syntax-converter">Formula syntax converter</h2><span class="dsub">Excel ⇄ Google Sheets ⇄ LibreOffice</span><span class="dwhat">Swaps argument separators between comma and semicolon locales and flags the functions that will not survive the move — XLOOKUP and the TEXT family in LibreOffice, spilling versus ARRAYFORMULA in Sheets.</span></summary>
+      <summary aria-labelledby="tk-formula-syntax-converter"><h3 class="dtitle" id="tk-formula-syntax-converter">Formula syntax converter</h3><span class="dsub">Excel ⇄ Google Sheets ⇄ LibreOffice</span><span class="dwhat">Swaps argument separators between comma and semicolon locales and flags the functions that will not survive the move — XLOOKUP and the TEXT family in LibreOffice, spilling versus ARRAYFORMULA in Sheets.</span></summary>
       <div class="dbody">
         <p class="sub">Mostly this is about argument separators and a handful of renamed functions. Paste a formula, pick where it is going, and get the version that will paste in cleanly.</p>
         <label class="fld"><span>Formula</span><input type="text" id="cvIn" spellcheck="false" placeholder="=IF(A1&gt;0;&quot;yes&quot;;&quot;no&quot;)"></label>
@@ -1829,19 +1856,47 @@
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-csv-inspector"><h2 class="dtitle" id="tk-csv-inspector">CSV inspector</h2><span class="dsub">what is actually in that file before you import it</span><span class="dwhat">Reads a file in your browser and reports what is actually in each column: the types it detects, blanks, mixed date formats, numbers stored as text, mangled characters from an encoding mismatch, ragged rows and invisible whitespace that breaks lookups.</span></summary>
+      <summary aria-labelledby="tk-lookup-builder"><h3 class="dtitle" id="tk-lookup-builder">Lookup builder</h3><span class="dsub">get a correct XLOOKUP, and the INDEX/MATCH fallback</span><span class="dwhat">Answer four questions about what you are looking up and where, and it writes both the XLOOKUP and the INDEX/MATCH that does the same job — with the not-found value handled, and a note on why either beats VLOOKUP.</span></summary>
       <div class="dbody">
-        <p class="sub">Drop a CSV and get the shape of it: columns, detected types, blanks, duplicate rows, mixed date formats, stray whitespace and the encoding problems that turn an apostrophe into three characters. Read locally; nothing is uploaded.</p>
-        <div id="csvDrop" class="drop">
-          <p><strong>Drop a CSV here</strong>, or</p>
-          <p><label class="btn" for="csvIn">Choose a file</label><input id="csvIn" type="file" accept=".csv,.tsv,text/csv" hidden></p>
+        <p class="sub">Answer what you are looking for and where, and take away a formula that works — plus the older equivalent for anyone on a version without XLOOKUP.</p>
+        <div class="lk-grid">
+          <label class="fld"><span>The value you are looking up</span><input type="text" id="lkVal" value="A2" spellcheck="false"></label>
+          <label class="fld"><span>Column to search in</span><input type="text" id="lkFind" value="Data!$A:$A" spellcheck="false"></label>
+          <label class="fld"><span>Column to return</span><input type="text" id="lkRet" value="Data!$C:$C" spellcheck="false"></label>
+          <label class="fld"><span>If nothing is found</span><input type="text" id="lkNf" value="not found" spellcheck="false"></label>
         </div>
-        <div id="csvOut" hidden></div>
+        <div class="a11y-row" style="border-bottom:0">
+          <label class="chk inline"><input type="checkbox" id="lkExact" checked><span>exact match</span></label>
+          <label class="chk inline"><input type="checkbox" id="lkLast"><span>search from the bottom up</span></label>
+          <button type="button" class="btn" id="lkGo">Build</button>
+        </div>
+        <div id="lkOut" hidden class="result"></div>
+      </div>
+    </details>
+
+    <h2 class="kit-h">Numbers and dates <span>arithmetic that is easy to get subtly wrong</span></h2>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-date-difference-deadlines"><h3 class="dtitle" id="tk-date-difference-deadlines">Date difference &amp; deadlines</h3><span class="dsub">months added correctly at month ends</span><span class="dwhat">The gap between two dates in years, months and days as well as a plain day count — and adding a period to a date with the month-end clamp applied, so one month after 31 January is the end of February rather than 3 March.</span></summary>
+      <div class="dbody">
+        <p class="sub">The gap between two dates in years, months and days — and adding a period to a date, which is fiddlier than it looks: one month after 31 January is 28 or 29 February, not 3 March.</p>
+        <div class="pc-row" style="margin-bottom:10px">
+          <label for="ddA" class="rangelab">From <input type="date" id="ddA"></label>
+          <label for="ddB" class="rangelab">To <input type="date" id="ddB"></label>
+          <button type="button" class="btn" id="ddGo">Difference</button>
+        </div>
+        <div class="pc-row" style="margin-bottom:10px">
+          <label for="dpA" class="rangelab">From <input type="date" id="dpA"></label>
+          <label for="dpN" class="rangelab">add <input type="number" id="dpN" value="1" style="width:5em"></label>
+          <label for="dpU" class="rangelab"><select id="dpU" style="width:auto"><option>months</option><option>years</option><option>days</option><option>weeks</option></select></label>
+          <button type="button" class="btn ghost" id="dpGo">Add</button>
+        </div>
+        <div id="ddOut" class="result" hidden></div>
       </div>
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-percentages"><h2 class="dtitle" id="tk-percentages">Percentages</h2><span class="dsub">including the reverse one everybody gets wrong</span><span class="dwhat">Four calculations in one place — a percentage of a number, the change between two numbers, adding or removing a percentage, and working back to the original. Precision adapts, so a movement of a hundredth of a percent still shows as a movement rather than 0.00%.</span></summary>
+      <summary aria-labelledby="tk-percentages"><h3 class="dtitle" id="tk-percentages">Percentages</h3><span class="dsub">including the reverse one everybody gets wrong</span><span class="dwhat">Four calculations in one place — a percentage of a number, the change between two numbers, adding or removing a percentage, and working back to the original. Precision adapts, so a movement of a hundredth of a percent still shows as a movement rather than 0.00%.</span></summary>
       <div class="dbody">
         <p class="sub">Four calculations that come up constantly. The last is the one worth knowing: taking 20% off a gross figure does <em>not</em> give you the net, because the 20% was added to a smaller number.</p>
 
@@ -1871,106 +1926,7 @@
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-vat"><h2 class="dtitle" id="tk-vat">VAT</h2><span class="dsub">add it, remove it, or check a gross figure</span><span class="dwhat">Shows both readings of the same figure at once — treating it as net and adding VAT, and treating it as gross and extracting it — at 20%, 5% or zero, and spells out how much you would be short if you took the shortcut of subtracting 20% from a gross figure.</span></summary>
-      <div class="dbody">
-        <p class="sub">To remove VAT at 20% you divide by 1.2, or equivalently take one sixth off the gross. Subtracting 20% is the common mistake and leaves you short.</p>
-        <div class="pc-row" style="margin-bottom:12px">
-          <label for="vatAmt" class="rangelab">Amount <input type="number" id="vatAmt" value="1200" step="any"></label>
-          <label for="vatRate" class="rangelab">Rate
-            <select id="vatRate" style="width:auto">
-              <option value="20">20% standard</option>
-              <option value="5">5% reduced</option>
-              <option value="0">0% zero-rated</option>
-            </select></label>
-        </div>
-        <div id="vatOut" class="result"></div>
-      </div>
-    </details>
-
-    <details class="tool-d">
-      <summary aria-labelledby="tk-working-days"><h2 class="dtitle" id="tk-working-days">Working days</h2><span class="dsub">England &amp; Wales bank holidays built in</span><span class="dwhat">Counts working days between two dates, or finds the date a number of working days away, excluding weekends and England and Wales bank holidays from the official GOV.UK list. It names each bank holiday it excluded so you can check the answer.</span></summary>
-      <div class="dbody">
-        <p class="sub">Counts working days between two dates, or finds the date a number of working days away. Weekends and England and Wales bank holidays are excluded, using the official list published by GOV.UK.</p>
-        <div class="pc-row" style="margin-bottom:10px">
-          <label for="wdFrom" class="rangelab">From <input type="date" id="wdFrom"></label>
-          <label for="wdTo" class="rangelab">To <input type="date" id="wdTo"></label>
-          <button type="button" class="btn" id="wdCount">Count</button>
-        </div>
-        <div class="pc-row" style="margin-bottom:10px">
-          <label for="wdStart" class="rangelab">From <input type="date" id="wdStart"></label>
-          <label for="wdN" class="rangelab">add <input type="number" id="wdN" value="20" style="width:5.5em"> working days</label>
-          <button type="button" class="btn ghost" id="wdAdd">Find the date</button>
-        </div>
-        <div id="wdOut" class="result" hidden></div>
-      </div>
-    </details>
-
-
-    <details class="tool-d">
-      <summary aria-labelledby="tk-date-difference-deadlines"><h2 class="dtitle" id="tk-date-difference-deadlines">Date difference &amp; deadlines</h2><span class="dsub">months added correctly at month ends</span><span class="dwhat">The gap between two dates in years, months and days as well as a plain day count — and adding a period to a date with the month-end clamp applied, so one month after 31 January is the end of February rather than 3 March.</span></summary>
-      <div class="dbody">
-        <p class="sub">The gap between two dates in years, months and days — and adding a period to a date, which is fiddlier than it looks: one month after 31 January is 28 or 29 February, not 3 March.</p>
-        <div class="pc-row" style="margin-bottom:10px">
-          <label for="ddA" class="rangelab">From <input type="date" id="ddA"></label>
-          <label for="ddB" class="rangelab">To <input type="date" id="ddB"></label>
-          <button type="button" class="btn" id="ddGo">Difference</button>
-        </div>
-        <div class="pc-row" style="margin-bottom:10px">
-          <label for="dpA" class="rangelab">From <input type="date" id="dpA"></label>
-          <label for="dpN" class="rangelab">add <input type="number" id="dpN" value="1" style="width:5em"></label>
-          <label for="dpU" class="rangelab"><select id="dpU" style="width:auto"><option>months</option><option>years</option><option>days</option><option>weeks</option></select></label>
-          <button type="button" class="btn ghost" id="dpGo">Add</button>
-        </div>
-        <div id="ddOut" class="result" hidden></div>
-      </div>
-    </details>
-
-
-
-
-
-    <details class="tool-d">
-      <summary aria-labelledby="tk-json-and-csv"><h2 class="dtitle" id="tk-json-and-csv">JSON and CSV</h2><span class="dsub">convert either way, and see what breaks</span><span class="dwhat">Converts either way. Columns are taken from every record rather than just the first, nested objects are flattened with a dot, and quoting follows RFC 4180 so commas, quotes and line breaks survive the trip into Excel.</span></summary>
-      <div class="dbody">
-        <p class="sub">Turns an array of JSON objects into a spreadsheet-ready CSV, or a CSV back into JSON. Columns are taken from every key seen across all records, not just the first — the usual cause of silently dropped fields. Quoting follows RFC 4180, so values containing commas, quotes or line breaks survive the trip into Excel.</p>
-        <div class="pc-row" style="margin-bottom:10px">
-          <button type="button" class="btn" id="jcToCsv">JSON → CSV</button>
-          <button type="button" class="btn" id="jcToJson">CSV → JSON</button>
-          <button type="button" class="btn ghost" id="jcDemo">Load an example</button>
-          <label class="chk inline"><input type="checkbox" id="jcBom" checked><span>add a byte-order mark for Excel</span></label>
-        </div>
-        <div class="two">
-          <label class="fld"><span>Input</span><textarea class="ta" id="jcIn" spellcheck="false"></textarea></label>
-          <label class="fld"><span>Output <button type="button" class="linkbtn" id="jcCopy">copy</button></span><textarea class="ta" id="jcOut" spellcheck="false" readonly></textarea></label>
-        </div>
-        <div id="jcMsg" class="result" hidden></div>
-      </div>
-    </details>
-
-
-    <details class="tool-d">
-      <summary aria-labelledby="tk-keyboard-shortcuts"><h2 class="dtitle" id="tk-keyboard-shortcuts">Keyboard shortcuts</h2><span class="dsub">Excel and Windows, the ones that actually save time</span><span class="dwhat">Sixty-three shortcuts across Excel, Windows and File Explorer, with the Mac equivalent where Excel differs. Filter by what you are trying to do rather than by the keys, since nobody remembers which combination does the thing they want.</span></summary>
-      <div class="dbody">
-        <p class="sub">Not the whole list — the ones worth committing to memory, with the Mac equivalent where Excel differs. Type to filter by what you are trying to do rather than by the keys.</p>
-        <div class="pc-row" style="margin-bottom:12px">
-          <label class="fld" style="flex:1;min-width:220px;margin:0"><span>Filter</span><input type="text" id="ksQ" placeholder="absolute, filter, paste, lock…" spellcheck="false" autocomplete="off"></label>
-        </div>
-        <div class="chips" id="ksChips">
-          <button type="button" class="chip on" data-ks="all">Everything</button>
-          <button type="button" class="chip" data-ks="excel">Excel</button>
-          <button type="button" class="chip" data-ks="windows">Windows</button>
-          <button type="button" class="chip" data-ks="explorer">File Explorer</button>
-        </div>
-        <p class="pc-out" id="ksCount"></p>
-        <div class="tablewrap"><table id="ksTable">
-          <thead><tr><th scope="col">Does what</th><th scope="col">Windows</th><th scope="col">Mac</th></tr></thead>
-          <tbody id="ksBody"></tbody>
-        </table></div>
-      </div>
-    </details>
-
-    <details class="tool-d">
-      <summary aria-labelledby="tk-units-and-file-sizes"><h2 class="dtitle" id="tk-units-and-file-sizes">Units and file sizes</h2><span class="dsub">including why a 1 TB drive shows as 931 GB</span><span class="dwhat">Length, mass, temperature, area, volume, speed, time and data. The data one explains the drive-size discrepancy properly, and warns about the traps: bits against bytes for broadband speed, and UK against US pints and gallons.</span></summary>
+      <summary aria-labelledby="tk-units-and-file-sizes"><h3 class="dtitle" id="tk-units-and-file-sizes">Units and file sizes</h3><span class="dsub">including why a 1 TB drive shows as 931 GB</span><span class="dwhat">Length, mass, temperature, area, volume, speed, time and data. The data one explains the drive-size discrepancy properly, and warns about the traps: bits against bytes for broadband speed, and UK against US pints and gallons.</span></summary>
       <div class="dbody">
         <p class="sub">Everyday conversions, plus the data one that trips everybody up: manufacturers sell drives in powers of ten and Windows reports them in powers of two, while still calling both “GB”. Nothing is missing from the drive — the two are counting differently.</p>
         <div class="pc-row" style="margin-bottom:12px">
@@ -1995,7 +1951,83 @@
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-regular-expression-explainer"><h2 class="dtitle" id="tk-regular-expression-explainer">Regular expression explainer</h2><span class="dsub">what the pattern actually says, in words</span><span class="dwhat">Reads a pattern back one piece at a time in plain English, indented by group depth, then runs it against your test text with the matches highlighted and any named capture groups laid out. It flags greedy matching, quantifiers that apply to one letter rather than the whole word, and the nesting that makes a pattern hang.</span></summary>
+      <summary aria-labelledby="tk-vat"><h3 class="dtitle" id="tk-vat">VAT</h3><span class="dsub">add it, remove it, or check a gross figure</span><span class="dwhat">Shows both readings of the same figure at once — treating it as net and adding VAT, and treating it as gross and extracting it — at 20%, 5% or zero, and spells out how much you would be short if you took the shortcut of subtracting 20% from a gross figure.</span></summary>
+      <div class="dbody">
+        <p class="sub">To remove VAT at 20% you divide by 1.2, or equivalently take one sixth off the gross. Subtracting 20% is the common mistake and leaves you short.</p>
+        <div class="pc-row" style="margin-bottom:12px">
+          <label for="vatAmt" class="rangelab">Amount <input type="number" id="vatAmt" value="1200" step="any"></label>
+          <label for="vatRate" class="rangelab">Rate
+            <select id="vatRate" style="width:auto">
+              <option value="20">20% standard</option>
+              <option value="5">5% reduced</option>
+              <option value="0">0% zero-rated</option>
+            </select></label>
+        </div>
+        <div id="vatOut" class="result"></div>
+      </div>
+    </details>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-working-days"><h3 class="dtitle" id="tk-working-days">Working days</h3><span class="dsub">England &amp; Wales bank holidays built in</span><span class="dwhat">Counts working days between two dates, or finds the date a number of working days away, excluding weekends and England and Wales bank holidays from the official GOV.UK list. It names each bank holiday it excluded so you can check the answer.</span></summary>
+      <div class="dbody">
+        <p class="sub">Counts working days between two dates, or finds the date a number of working days away. Weekends and England and Wales bank holidays are excluded, using the official list published by GOV.UK.</p>
+        <div class="pc-row" style="margin-bottom:10px">
+          <label for="wdFrom" class="rangelab">From <input type="date" id="wdFrom"></label>
+          <label for="wdTo" class="rangelab">To <input type="date" id="wdTo"></label>
+          <button type="button" class="btn" id="wdCount">Count</button>
+        </div>
+        <div class="pc-row" style="margin-bottom:10px">
+          <label for="wdStart" class="rangelab">From <input type="date" id="wdStart"></label>
+          <label for="wdN" class="rangelab">add <input type="number" id="wdN" value="20" style="width:5.5em"> working days</label>
+          <button type="button" class="btn ghost" id="wdAdd">Find the date</button>
+        </div>
+        <div id="wdOut" class="result" hidden></div>
+      </div>
+    </details>
+
+    <h2 class="kit-h">Converting and explaining <span>turning one shape of data into another, and reading it back</span></h2>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-json-and-csv"><h3 class="dtitle" id="tk-json-and-csv">JSON and CSV</h3><span class="dsub">convert either way, and see what breaks</span><span class="dwhat">Converts either way. Columns are taken from every record rather than just the first, nested objects are flattened with a dot, and quoting follows RFC 4180 so commas, quotes and line breaks survive the trip into Excel.</span></summary>
+      <div class="dbody">
+        <p class="sub">Turns an array of JSON objects into a spreadsheet-ready CSV, or a CSV back into JSON. Columns are taken from every key seen across all records, not just the first — the usual cause of silently dropped fields. Quoting follows RFC 4180, so values containing commas, quotes or line breaks survive the trip into Excel.</p>
+        <div class="pc-row" style="margin-bottom:10px">
+          <button type="button" class="btn" id="jcToCsv">JSON → CSV</button>
+          <button type="button" class="btn" id="jcToJson">CSV → JSON</button>
+          <button type="button" class="btn ghost" id="jcDemo">Load an example</button>
+          <label class="chk inline"><input type="checkbox" id="jcBom" checked><span>add a byte-order mark for Excel</span></label>
+        </div>
+        <div class="two">
+          <label class="fld"><span>Input</span><textarea class="ta" id="jcIn" spellcheck="false"></textarea></label>
+          <label class="fld"><span>Output <button type="button" class="linkbtn" id="jcCopy">copy</button></span><textarea class="ta" id="jcOut" spellcheck="false" readonly></textarea></label>
+        </div>
+        <div id="jcMsg" class="result" hidden></div>
+      </div>
+    </details>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-keyboard-shortcuts"><h3 class="dtitle" id="tk-keyboard-shortcuts">Keyboard shortcuts</h3><span class="dsub">Excel and Windows, the ones that actually save time</span><span class="dwhat">Sixty-three shortcuts across Excel, Windows and File Explorer, with the Mac equivalent where Excel differs. Filter by what you are trying to do rather than by the keys, since nobody remembers which combination does the thing they want.</span></summary>
+      <div class="dbody">
+        <p class="sub">Not the whole list — the ones worth committing to memory, with the Mac equivalent where Excel differs. Type to filter by what you are trying to do rather than by the keys.</p>
+        <div class="pc-row" style="margin-bottom:12px">
+          <label class="fld" style="flex:1;min-width:220px;margin:0"><span>Filter</span><input type="text" id="ksQ" placeholder="absolute, filter, paste, lock…" spellcheck="false" autocomplete="off"></label>
+        </div>
+        <div class="chips" id="ksChips">
+          <button type="button" class="chip on" data-ks="all">Everything</button>
+          <button type="button" class="chip" data-ks="excel">Excel</button>
+          <button type="button" class="chip" data-ks="windows">Windows</button>
+          <button type="button" class="chip" data-ks="explorer">File Explorer</button>
+        </div>
+        <p class="pc-out" id="ksCount"></p>
+        <div class="tablewrap"><table id="ksTable">
+          <thead><tr><th scope="col">Does what</th><th scope="col">Windows</th><th scope="col">Mac</th></tr></thead>
+          <tbody id="ksBody"></tbody>
+        </table></div>
+      </div>
+    </details>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-regular-expression-explainer"><h3 class="dtitle" id="tk-regular-expression-explainer">Regular expression explainer</h3><span class="dsub">what the pattern actually says, in words</span><span class="dwhat">Reads a pattern back one piece at a time in plain English, indented by group depth, then runs it against your test text with the matches highlighted and any named capture groups laid out. It flags greedy matching, quantifiers that apply to one letter rather than the whole word, and the nesting that makes a pattern hang.</span></summary>
       <div class="dbody">
         <p class="sub">Paste a regular expression and it is read back to you a piece at a time in plain English, then run against your test text so you can see what it catches and what it misses. Regex is the sort of thing that is written once, pasted into a filter or a validation rule, and never looked at again — this is for the moment you have to work out what an inherited one does.</p>
         <label class="fld"><span>Pattern</span><input type="text" id="reIn" spellcheck="false" autocomplete="off" placeholder="^[A-Z]{2}\d{2} ?\d[A-Z]{2}$"></label>
@@ -2020,8 +2052,10 @@
       </div>
     </details>
 
+    <h2 class="kit-h">Files and media <span>what a file is carrying, and getting things out of it</span></h2>
+
     <details class="tool-d">
-      <summary aria-labelledby="tk-video-frame-extractor"><h2 class="dtitle" id="tk-video-frame-extractor">Video frame extractor</h2><span class="dsub">pull stills out of a video, and the FFmpeg line for the ones it cannot open</span><span class="dwhat">Opens a video in your browser, steps through it a frame at a time and saves any frame as a PNG or JPEG at the video’s own resolution. It will also take a still every few seconds across a whole clip, lay the set out as a single contact sheet, and pack the lot into one zip — and it writes the equivalent FFmpeg command as it goes, for long files, awkward codecs, or anything you would rather run properly.</span></summary>
+      <summary aria-labelledby="tk-video-frame-extractor"><h3 class="dtitle" id="tk-video-frame-extractor">Video frame extractor</h3><span class="dsub">pull stills out of a video, and the FFmpeg line for the ones it cannot open</span><span class="dwhat">Opens a video in your browser, steps through it a frame at a time and saves any frame as a PNG or JPEG at the video’s own resolution. It will also take a still every few seconds across a whole clip, lay the set out as a single contact sheet, and pack the lot into one zip — and it writes the equivalent FFmpeg command as it goes, for long files, awkward codecs, or anything you would rather run properly.</span></summary>
       <div class="dbody">
         <p class="sub">Getting one clean still out of a video usually means a screenshot of a paused player: whatever scaling the window happened to be at, the play controls fading in over the shot, and no way to say <em>exactly</em> which frame you meant. This decodes the video and draws the frame itself, so the result is the video’s own resolution with nothing on top of it, and the timecode is recorded to the millisecond.</p>
         <p class="sub"><strong>The video is opened by your own browser and never leaves this device.</strong> It is not uploaded, and nothing is stored — close the tab and it is gone. A frame saved here also carries none of the source file’s metadata, since it is drawn fresh rather than extracted.</p>
@@ -2115,7 +2149,46 @@
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-file-hash-transfer-manifest"><h2 class="dtitle" id="tk-file-hash-transfer-manifest">File hash &amp; transfer manifest</h2><span class="dsub">prove a file is byte-for-byte the one that was sent</span><span class="dwhat">Fingerprints files with SHA-256 in your own browser and produces a manifest — name, size, hash and timestamp for every file — as chain-of-custody evidence for a transfer. Nothing is uploaded, because there is no server to upload it to.</span></summary>
+      <summary aria-labelledby="tk-what-your-documents-give-away"><h3 class="dtitle" id="tk-what-your-documents-give-away">What your documents give away</h3><span class="dsub">the metadata riding along inside a document or photo</span><span class="dwhat">Reads the metadata hidden inside Office files, PDFs and photographs: author, whoever last saved it, the software and version, timestamps to the second, and for photographs often the exact location the picture was taken. All of it survives being renamed, copied and emailed.</span></summary>
+      <div class="dbody">
+        <p class="sub">Every Office document, PDF and photograph carries metadata that travels with the file — author names, the name of whoever last saved it, the software and version, timestamps to the second, and in the case of photographs, often the exact location the picture was taken. None of it appears when you open the file, and all of it survives being renamed, copied and emailed.</p>
+        <p class="sub">Drop a file below and see what it is carrying. It is read by your browser and never leaves this device. Supports .docx, .xlsx, .pptx, .pdf and .jpg.</p>
+
+        <div id="mDrop" class="drop">
+          <p><strong>Drop a document or photo here</strong>, or</p>
+          <p><label class="btn" for="mInput">Choose a file</label>
+            <input id="mInput" type="file" multiple hidden></p>
+          <p class="drop-note">Try one you were about to send to someone.</p>
+        </div>
+
+        <div id="mOut" hidden>
+          <div class="tool-actions"><button type="button" class="btn ghost" id="mClear">Clear</button></div>
+          <div id="mBody"></div>
+        </div>
+      </div>
+    </details>
+
+    <h2 class="kit-h">Integrity and evidence <span>proving a file is the one that was sent</span></h2>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-compare-two-hashes"><h3 class="dtitle" id="tk-compare-two-hashes">Compare two hashes</h3><span class="dsub">check a hash somebody sent you against your own</span><span class="dwhat">For when someone sends you a hash to check against your own. The comparison accumulates a difference across every character rather than stopping at the first mismatch, so it takes the same time whatever differs.</span></summary>
+      <div class="dbody">
+        <p class="sub">For when someone sends you a hash to check against your own. Both are compared in your browser and neither is uploaded.</p>
+        <div class="cmp">
+          <label class="fld"><span>Hash A</span><input type="text" id="cmpA" spellcheck="false" autocomplete="off" placeholder="paste a hash, or drop a file below"></label>
+          <label class="fld"><span>Hash B</span><input type="text" id="cmpB" spellcheck="false" autocomplete="off" placeholder="paste the hash you were sent"></label>
+          <div class="tool-actions">
+            <label class="btn ghost" for="cmpFile">Hash a file into A</label>
+            <input id="cmpFile" type="file" hidden>
+            <button type="button" class="btn" id="cmpRun">Compare</button>
+          </div>
+          <p id="cmpOut" class="cmp-out" role="status"></p>
+        </div>
+      </div>
+    </details>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-file-hash-transfer-manifest"><h3 class="dtitle" id="tk-file-hash-transfer-manifest">File hash &amp; transfer manifest</h3><span class="dsub">prove a file is byte-for-byte the one that was sent</span><span class="dwhat">Fingerprints files with SHA-256 in your own browser and produces a manifest — name, size, hash and timestamp for every file — as chain-of-custody evidence for a transfer. Nothing is uploaded, because there is no server to upload it to.</span></summary>
       <div class="dbody">
         <p class="sub">A SHA-256 hash is a fingerprint of a file’s exact bytes. Change one byte and the fingerprint changes completely, so comparing hashes proves whether a file is identical to the one that was sent — useful whenever a set of files is handed over and its integrity has to be evidenced afterwards, or when you need to show later that what you destroyed was what you meant to destroy. A manifest records the file name, size, hash and time for every file in a transfer, as chain-of-custody evidence.</p>
         <p class="sub"><strong>Your files are read by your own browser and never leave this device.</strong> There is no server here to send them to.</p>
@@ -2144,27 +2217,7 @@
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-what-your-documents-give-away"><h2 class="dtitle" id="tk-what-your-documents-give-away">What your documents give away</h2><span class="dsub">the metadata riding along inside a document or photo</span><span class="dwhat">Reads the metadata hidden inside Office files, PDFs and photographs: author, whoever last saved it, the software and version, timestamps to the second, and for photographs often the exact location the picture was taken. All of it survives being renamed, copied and emailed.</span></summary>
-      <div class="dbody">
-        <p class="sub">Every Office document, PDF and photograph carries metadata that travels with the file — author names, the name of whoever last saved it, the software and version, timestamps to the second, and in the case of photographs, often the exact location the picture was taken. None of it appears when you open the file, and all of it survives being renamed, copied and emailed.</p>
-        <p class="sub">Drop a file below and see what it is carrying. It is read by your browser and never leaves this device. Supports .docx, .xlsx, .pptx, .pdf and .jpg.</p>
-
-        <div id="mDrop" class="drop">
-          <p><strong>Drop a document or photo here</strong>, or</p>
-          <p><label class="btn" for="mInput">Choose a file</label>
-            <input id="mInput" type="file" multiple hidden></p>
-          <p class="drop-note">Try one you were about to send to someone.</p>
-        </div>
-
-        <div id="mOut" hidden>
-          <div class="tool-actions"><button type="button" class="btn ghost" id="mClear">Clear</button></div>
-          <div id="mBody"></div>
-        </div>
-      </div>
-    </details>
-
-    <details class="tool-d">
-      <summary aria-labelledby="tk-verify-a-manifest"><h2 class="dtitle" id="tk-verify-a-manifest">Verify a manifest</h2><span class="dsub">the receiving end of a transfer, which usually gets skipped</span><span class="dwhat">The receiving end of a transfer. Load a manifest you were sent, add the files that arrived, and every one is checked against its recorded hash — matched, altered, missing, or not on the manifest at all — with a report you can keep.</span></summary>
+      <summary aria-labelledby="tk-verify-a-manifest"><h3 class="dtitle" id="tk-verify-a-manifest">Verify a manifest</h3><span class="dsub">the receiving end of a transfer, which usually gets skipped</span><span class="dwhat">The receiving end of a transfer. Load a manifest you were sent, add the files that arrived, and every one is checked against its recorded hash — matched, altered, missing, or not on the manifest at all — with a report you can keep.</span></summary>
       <div class="dbody">
         <p class="sub">The other half of the job, and the half that usually gets skipped. Load a manifest you were sent, add the files you received, and every file is checked against its recorded hash — matched, altered, missing, or not on the manifest at all. This is the receiving end of a data transfer: the point at which you can say the records that arrived are the records that were sent.</p>
 
@@ -2199,25 +2252,10 @@
       </div>
     </details>
 
-    <details class="tool-d">
-      <summary aria-labelledby="tk-compare-two-hashes"><h2 class="dtitle" id="tk-compare-two-hashes">Compare two hashes</h2><span class="dsub">check a hash somebody sent you against your own</span><span class="dwhat">For when someone sends you a hash to check against your own. The comparison accumulates a difference across every character rather than stopping at the first mismatch, so it takes the same time whatever differs.</span></summary>
-      <div class="dbody">
-        <p class="sub">For when someone sends you a hash to check against your own. Both are compared in your browser and neither is uploaded.</p>
-        <div class="cmp">
-          <label class="fld"><span>Hash A</span><input type="text" id="cmpA" spellcheck="false" autocomplete="off" placeholder="paste a hash, or drop a file below"></label>
-          <label class="fld"><span>Hash B</span><input type="text" id="cmpB" spellcheck="false" autocomplete="off" placeholder="paste the hash you were sent"></label>
-          <div class="tool-actions">
-            <label class="btn ghost" for="cmpFile">Hash a file into A</label>
-            <input id="cmpFile" type="file" hidden>
-            <button type="button" class="btn" id="cmpRun">Compare</button>
-          </div>
-          <p id="cmpOut" class="cmp-out" role="status"></p>
-        </div>
-      </div>
-    </details>
+    <h2 class="kit-h">Cryptography <span>done in your browser, with nothing uploaded</span></h2>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-encrypt-a-file"><h2 class="dtitle" id="tk-encrypt-a-file">Encrypt a file</h2><span class="dsub">AES-256 in the browser, with nothing uploaded</span><span class="dwhat">AES-256-GCM with a key derived from your passphrase by PBKDF2 at 600,000 iterations. Encryption and decryption both happen on your device, so the passphrase never leaves it — and neither does the file.</span></summary>
+      <summary aria-labelledby="tk-encrypt-a-file"><h3 class="dtitle" id="tk-encrypt-a-file">Encrypt a file</h3><span class="dsub">AES-256 in the browser, with nothing uploaded</span><span class="dwhat">AES-256-GCM with a key derived from your passphrase by PBKDF2 at 600,000 iterations. Encryption and decryption both happen on your device, so the passphrase never leaves it — and neither does the file.</span></summary>
       <div class="dbody">
         <p class="sub">AES-256-GCM, with the key derived from your passphrase using PBKDF2 at 600,000 iterations and a random salt. Encryption and decryption both happen in your browser. The output is a single file containing the salt, the initialisation vector and the ciphertext; feed it back in with the same passphrase to recover the original.</p>
         <p class="sub"><strong>The honest caveat:</strong> this protects the file, not the passphrase. Getting the passphrase to the recipient safely is the hard part, and no browser tool solves it — send it by a different channel from the file, never in the same email.</p>
@@ -2236,7 +2274,7 @@
     </details>
 
     <details class="tool-d">
-      <summary aria-labelledby="tk-passphrase-password-generator"><h2 class="dtitle" id="tk-passphrase-password-generator">Passphrase &amp; password generator</h2><span class="dsub">and an honest estimate of how long it would hold</span><span class="dwhat">Builds either from the browser's cryptographic random source, with the character sets and length under your control, and reports the actual entropy in bits alongside an honest estimate of how long it would take to crack — assuming the attacker knows exactly how it was made.</span></summary>
+      <summary aria-labelledby="tk-passphrase-password-generator"><h3 class="dtitle" id="tk-passphrase-password-generator">Passphrase &amp; password generator</h3><span class="dsub">and an honest estimate of how long it would hold</span><span class="dwhat">Builds either from the browser's cryptographic random source, with the character sets and length under your control, and reports the actual entropy in bits alongside an honest estimate of how long it would take to crack — assuming the attacker knows exactly how it was made.</span></summary>
       <div class="dbody">
         <p class="sub">Both modes draw from the browser’s cryptographic random source, using rejection sampling so no character or word is more likely than another. The strength figure is arithmetic — length multiplied by the bits each element contributes — not a guess, and the crack estimate assumes the attacker knows exactly how the secret was generated and can try a trillion candidates a second.</p>
 
@@ -2284,9 +2322,8 @@
       </div>
     </details>
 
-
     <details class="tool-d">
-      <summary aria-labelledby="tk-sign-and-verify-a-file"><h2 class="dtitle" id="tk-sign-and-verify-a-file">Sign and verify a file</h2><span class="dsub">prove who produced a file, not just that it is intact</span><span class="dwhat">Generates an ECDSA P-256 key pair, signs a file with the private key, and verifies a signature with the public one. A hash proves a file has not changed; a signature also proves who produced it.</span></summary>
+      <summary aria-labelledby="tk-sign-and-verify-a-file"><h3 class="dtitle" id="tk-sign-and-verify-a-file">Sign and verify a file</h3><span class="dsub">prove who produced a file, not just that it is intact</span><span class="dwhat">Generates an ECDSA P-256 key pair, signs a file with the private key, and verifies a signature with the public one. A hash proves a file has not changed; a signature also proves who produced it.</span></summary>
       <div class="dbody">
         <p class="sub">ECDSA over P-256. Generate a key pair, sign a file, and anyone holding your public key can confirm the file has not changed since you signed it and that the signature came from the holder of the private key.</p>
         <p class="sub"><strong>What it does not do:</strong> prove who you are. A signature proves possession of a key, not identity — that requires a certificate authority or some other trust infrastructure. Treat this as a demonstration of the mechanism rather than a document-signing service. The private key exists only in this tab and is gone when you close it.</p>
@@ -2361,7 +2398,7 @@
       <span class="sep" aria-hidden="true">/</span>
       <span>Last updated <time id="upd" datetime="2026-09-01">1 September 2026</time></span>
       <span class="sep" aria-hidden="true">/</span>
-      <span>one file, <span id="wtSize">110 KB over the wire, 367 KB unpacked</span></span>
+      <span>one file, <span id="wtSize">110 KB over the wire, 370 KB unpacked</span></span>
     </span>
     <span><a href="#" id="privLink">How this site handles data</a></span>
   </div>
