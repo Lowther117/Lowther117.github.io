@@ -451,11 +451,49 @@
   .verify-summary.warn{background:rgba(255,207,107,.12);border:1px solid #ffcf6b;color:#ffcf6b}
   body.theme-light .verify-summary.warn{border-color:#8a5a00;color:#8a5a00}
   .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
-  .w-add{background:rgba(95,212,196,.28);color:inherit;border-radius:3px}
+  .w-add{background:rgba(196,166,255,.28);color:inherit;border-radius:3px}
   .w-del{background:rgba(255,155,138,.28);color:inherit;border-radius:3px;text-decoration:line-through}
   body.theme-light .d-del .dsign{color:#b42318}
-  body.theme-light .w-add{background:rgba(11,122,105,.22)}
+  body.theme-light .w-add{background:rgba(126,34,206,.16)}
   body.theme-light .w-del{background:rgba(180,35,24,.18)}
+
+  /* ---------- document diff ---------- */
+  .dd-text{width:100%;box-sizing:border-box;margin:10px 0 0;font:inherit;font-size:.88rem;background:var(--bg);color:var(--text);
+    border:1px solid var(--line);border-radius:9px;padding:8px 10px;resize:vertical}
+  .dd-opt{display:inline-flex;align-items:center;gap:6px;font-size:.9rem;color:var(--muted);padding:.5rem 0}
+  .dd-view{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;font-size:.92rem}
+  .dd-row{display:flex;gap:10px;padding:6px 12px;border-top:1px solid var(--line)}
+  .dd-row:first-child{border-top:0}
+  .dd-mark{flex:0 0 1.1em;text-align:center;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .dd-txt{white-space:pre-wrap;word-break:break-word;flex:1;min-width:0}
+  .dd-add{background:rgba(196,166,255,.08)}.dd-del{background:rgba(255,155,138,.08)}.dd-chg{background:rgba(255,207,107,.07)}
+  .dd-add .dd-mark{color:var(--accent)}.dd-del .dd-mark{color:#ff9b8a}.dd-chg .dd-mark{color:#ffcf6b}
+  .dd-before,.dd-after{display:block}.dd-before{color:var(--muted)}.dd-after{margin-top:2px}
+  .dd-fold{display:block;width:100%;font:inherit;font-size:.82rem;color:var(--muted);background:var(--bg);border:0;
+    border-top:1px solid var(--line);padding:6px 12px;text-align:left;cursor:pointer}
+  .dd-fold:hover{color:var(--accent)}
+  .dd-sheet{font-size:.95rem;margin:18px 0 8px}.dd-sheet:first-child{margin-top:0}
+  .dd-empty{color:var(--muted);font-style:italic}
+  .dd-note{color:#ffcf6b}
+  body.theme-light .dd-del .dd-mark{color:#b42318}
+  body.theme-light .dd-chg .dd-mark,body.theme-light .dd-note{color:#8a5a00}
+  body.theme-light .dd-add{background:rgba(126,34,206,.06)}
+
+  /* ---------- email header reader ---------- */
+  .eh-in{margin-top:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.82rem}
+  .eh-sum{font-weight:400;margin:8px 0 0;color:var(--text);font-size:.93rem;line-height:1.5}
+  .eh-badge{text-transform:uppercase;font-size:.78rem;letter-spacing:.06em}
+  .eh-table th{white-space:nowrap;width:1%;font-size:.85rem;letter-spacing:0;text-transform:none;color:var(--text);font-weight:650}
+  .eh-table td{word-break:break-word}
+  .eh-muted{color:var(--muted);font-size:.85rem;margin-top:3px}
+  .eh-ok{color:var(--accent);font-weight:650}
+  .eh-val{font-size:.8rem;word-break:break-all}
+  .eh-all{margin:6px 0 0}
+  .eh-all>summary{cursor:pointer;color:var(--muted);font-size:.9rem;padding:8px 0}
+  .eh-all>summary:hover{color:var(--accent)}
+  .resteps li.v-bad,.resteps li.v-warn{font-weight:400}
+  .resteps li.v-bad::marker{color:#ff9b8a}.resteps li.v-warn::marker{color:#ffcf6b}
+  body.theme-light .resteps li.v-bad::marker{color:#b42318}body.theme-light .resteps li.v-warn::marker{color:#8a5a00}
 
   /* ---------- shortcuts, units, regex ---------- */
   kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.78rem;
@@ -517,7 +555,7 @@
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:0 0 18px}
   .vlabel{margin:0 0 8px;font-weight:650;font-size:.9rem}
   .verify-summary{border-radius:10px;padding:12px 14px;margin:0 0 14px;font-weight:650;font-size:.95rem}
-  .verify-summary.ok{background:rgba(95,212,196,.12);border:1px solid var(--accent);color:var(--accent)}
+  .verify-summary.ok{background:rgba(196,166,255,.12);border:1px solid var(--accent);color:var(--accent)}
   .verify-summary.bad{background:rgba(255,155,138,.12);border:1px solid #ff9b8a;color:#ff9b8a}
   .v-ok{color:var(--accent);font-weight:650}
   .v-bad{color:#ff9b8a;font-weight:700}
@@ -1078,12 +1116,6 @@
           <div class="top"><h3><a href="https://github.com/Lowther117/ocr-pdf-converter" rel="noopener">OCR PDF Converter</a></h3><span class="pill">Mac &amp; Windows</span></div>
           <p>Batch-converts scanned PDFs into searchable Word documents or plain text using OCR, with some image preprocessing to improve accuracy on poor-quality scans.</p>
           <div class="tags"><span class="tag">Python</span><span class="tag">Tesseract OCR</span></div>
-        </div>
-
-        <div class="card">
-          <div class="top"><h3><a href="https://github.com/Lowther117/sherlock-gui" rel="noopener">Sherlock GUI</a></h3><span class="pill">Mac &amp; Windows</span></div>
-          <p>A desktop front end for the Sherlock and Maigret username checkers, which run side by side and feed one table. Each site gets a description and category, each result shows why the engine thought a profile existed, and a second independent request re-checks claimed profiles so the false positives those tools are known for can be filtered out. Further tabs cover email, phone number and domain lookups. Built primarily out of curiosity.</p>
-          <div class="tags"><span class="tag">Python</span><span class="tag">OSINT</span></div>
         </div>
 
         <div class="card">
@@ -1824,7 +1856,7 @@
     <div class="wrap">
       <p class="eyebrow">Toolkit</p>
       <h1>Everyday tools</h1>
-      <p class="lead">Small utilities for the things that otherwise get done by hand: spreadsheet formulas, percentages, VAT and dates, converting units, reading a regular expression back in plain English, pulling stills out of a video, and hashing and verifying files. All of it runs in your browser — nothing is uploaded and nothing is stored.</p>
+      <p class="lead">Small utilities for the things that otherwise get done by hand: spreadsheet formulas, percentages, VAT and dates, converting units, reading a regular expression back in plain English, pulling stills out of a video, comparing two versions of a document, reading the headers of a suspicious email, and hashing and verifying files. All of it runs in your browser — nothing is uploaded and nothing is stored.</p>
     </div>
   </div>
 
@@ -2081,6 +2113,53 @@
     <h2 class="kit-h">Files and media <span>what a file is carrying, and getting things out of it</span></h2>
 
     <details class="tool-d">
+      <summary aria-labelledby="tk-document-diff"><h3 class="dtitle" id="tk-document-diff">Document diff</h3><span class="dsub">what changed between two versions of a file</span><span class="dwhat">Compares two versions of a document and shows exactly what was added, removed or reworded — paragraph by paragraph for Word, PDF, PowerPoint and text, cell by cell for Excel. Both files are read in your browser and never leave this device.</span></summary>
+      <div class="dbody">
+        <p class="sub">Two versions of a policy, a contract or a spreadsheet, and the question is always the same: what actually changed? Drop the original on the left and the revision on the right. Word, PowerPoint and PDF are compared paragraph by paragraph, with the changed words picked out inside each one; Excel is compared cell by cell, sheet by sheet, so a single altered number does not hide in a wall of text.</p>
+        <p class="sub">Supports .docx, .xlsx, .pptx, .pdf, .txt, .csv, .md, .json, .html and .xml — or paste text straight in. Formatting, images and comments are not compared: this is about the words and the values.</p>
+
+        <div class="verify-grid" id="dfGrid">
+          <div>
+            <p class="vlabel">Original</p>
+            <div id="dfDropA" class="drop dd-drop">
+              <p><strong>Drop the original here</strong>, or</p>
+              <p><label class="btn" for="dfInA">Choose a file</label>
+                <input id="dfInA" type="file" hidden></p>
+              <p class="drop-note" id="dfNameA">No file yet</p>
+            </div>
+            <textarea id="dfTextA" class="dd-text" rows="6" aria-label="Original text" placeholder="…or paste the original text here" spellcheck="false"></textarea>
+          </div>
+          <div>
+            <p class="vlabel">Revised</p>
+            <div id="dfDropB" class="drop dd-drop">
+              <p><strong>Drop the revision here</strong>, or</p>
+              <p><label class="btn" for="dfInB">Choose a file</label>
+                <input id="dfInB" type="file" hidden></p>
+              <p class="drop-note" id="dfNameB">No file yet</p>
+            </div>
+            <textarea id="dfTextB" class="dd-text" rows="6" aria-label="Revised text" placeholder="…or paste the revised text here" spellcheck="false"></textarea>
+          </div>
+        </div>
+
+        <div class="tool-actions">
+          <button type="button" class="btn" id="dfRun">Compare</button>
+          <button type="button" class="btn ghost" id="dfCopy" hidden>Copy report</button>
+          <button type="button" class="btn ghost" id="dfClear">Clear</button>
+          <label class="dd-opt"><input type="checkbox" id="dfLoose"> Ignore case and spacing</label>
+          <label class="dd-opt"><input type="checkbox" id="dfContext" checked> Hide unchanged paragraphs</label>
+        </div>
+
+        <div id="dfOut" hidden>
+          <div id="dfSummary" class="verify-summary"></div>
+          <div id="dfNotes"></div>
+          <div id="dfBody"></div>
+        </div>
+
+        <p class="disclaim">PDF text is extracted from the file's own content streams, which works for PDFs made from Word, Google Docs, LibreOffice and most report generators. A scanned PDF has no text to read, and a few unusually built PDFs will not decode cleanly — if the result looks wrong, export both versions to Word or plain text and compare those instead. Word tables and PowerPoint slides come through as paragraphs; headers, footers and speaker notes are not compared. Nothing is uploaded and nothing is stored.</p>
+      </div>
+    </details>
+
+    <details class="tool-d">
       <summary aria-labelledby="tk-video-frame-extractor"><h3 class="dtitle" id="tk-video-frame-extractor">Video frame extractor</h3><span class="dsub">pull stills out of a video, and the FFmpeg line for the ones it cannot open</span><span class="dwhat">Opens a video in your browser, steps through it a frame at a time and saves any frame as a PNG or JPEG at the video’s own resolution. It will also take a still every few seconds across a whole clip, lay the set out as a single contact sheet, and pack the lot into one zip — and it writes the equivalent FFmpeg command as it goes, for long files, awkward codecs, or anything you would rather run properly.</span></summary>
       <div class="dbody">
         <p class="sub">Getting one clean still out of a video usually means a screenshot of a paused player: whatever scaling the window happened to be at, the play controls fading in over the shot, and no way to say <em>exactly</em> which frame you meant. This decodes the video and draws the frame itself, so the result is the video’s own resolution with nothing on top of it, and the timecode is recorded to the millisecond.</p>
@@ -2210,6 +2289,33 @@
           </div>
           <p id="cmpOut" class="cmp-out" role="status"></p>
         </div>
+      </div>
+    </details>
+
+    <details class="tool-d">
+      <summary aria-labelledby="tk-email-header-reader"><h3 class="dtitle" id="tk-email-header-reader">Email header reader</h3><span class="dsub">who really sent it, which way it came, and whether the checks passed</span><span class="dwhat">Paste the full headers of an email and get a plain-English account of where it came from: whether the sending server was allowed to send for that domain, whether the message was signed, whether replies would quietly go somewhere else, and every server it passed through on the way. Nothing is sent anywhere.</span></summary>
+      <div class="dbody">
+        <p class="sub">Every email carries a record of its journey in the headers — dozens of lines that mail programs hide because they look like noise. They are the best evidence you have when a message feels wrong. This reads them and tells you, without jargon, what they say: who the message claims to be from, whether the receiving server's checks backed that up, where replies would actually go, and the servers it passed through.</p>
+        <p class="sub">To get the headers: in Outlook open the message, then File → Properties and copy the "Internet headers" box; in Gmail open the message, use the three-dot menu → "Show original" and copy everything; in Apple Mail, View → Message → All Headers. Paste the lot below — the tool finds the headers on its own.</p>
+
+        <div class="chips" id="ehChips">
+          <button type="button" class="chip" data-ex="ok">Example: a message that checks out</button>
+          <button type="button" class="chip" data-ex="spoof">Example: a message pretending to be someone</button>
+          <button type="button" class="chip" data-ex="list">Example: a message via a mailing list</button>
+        </div>
+        <textarea id="ehIn" class="dd-text eh-in" rows="9" aria-label="Email headers" placeholder="Paste the message headers here" spellcheck="false"></textarea>
+        <div class="tool-actions" style="margin-top:12px">
+          <button type="button" class="btn" id="ehRun">Read the headers</button>
+          <button type="button" class="btn ghost" id="ehCopy" hidden>Copy summary</button>
+          <button type="button" class="btn ghost" id="ehClear">Clear</button>
+        </div>
+
+        <div id="ehOut" hidden>
+          <div id="ehSummary" class="verify-summary"></div>
+          <div id="ehBody"></div>
+        </div>
+
+        <p class="disclaim">The pass/fail results come from the server that received the message, recorded in its Authentication-Results header — this tool reads them, it cannot re-run them, because verifying a signature means looking up keys in DNS and nothing here goes online. A message can pass every check and still be dangerous: the checks prove which domain sent it, not that the domain is honest or that the account was not compromised. Nothing you paste leaves this device.</p>
       </div>
     </details>
 
@@ -2422,7 +2528,7 @@
     <span class="fmeta">
       <span>© <span id="yr"></span></span><!-- name parked: Daniel Lowther -->
       <span class="sep" aria-hidden="true">/</span>
-      <span>Last updated <time id="upd" datetime="2026-09-01">1 September 2026</time></span>
+      <span>Last updated <time id="upd" datetime="2026-09-11">11 September 2026</time></span>
       <span class="sep" aria-hidden="true">/</span>
       <span>one file, <span id="wtSize">110 KB over the wire, 370 KB unpacked</span></span>
     </span>
@@ -5389,6 +5495,1039 @@
     }
   } catch (e) { /* leave the figure that is already in the markup */ }
 
+})();
+</script>
+
+<script>
+/* ================= Document diff ================= */
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  if (!$('#dfRun')) return;
+
+  var state = { a: null, b: null, report: '' };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var utf8 = function (u8) { return new TextDecoder('utf-8').decode(u8); };
+  var latin1 = function (u8) { var s = ''; for (var i = 0; i < u8.length; i++) s += String.fromCharCode(u8[i]); return s; };
+
+  async function inflate(u8, format) {
+    if (typeof DecompressionStream === 'undefined') throw new Error('This browser cannot decompress files (no DecompressionStream). Try a current Chrome, Edge, Firefox or Safari.');
+    var ds = new DecompressionStream(format);
+    var stream = new Blob([u8]).stream().pipeThrough(ds);
+    return new Uint8Array(await new Response(stream).arrayBuffer());
+  }
+
+  /* ---------- ZIP container (docx / xlsx / pptx) ---------- */
+  async function readZip(buf) {
+    var d = new DataView(buf), u8 = new Uint8Array(buf), entries = {};
+    var eocd = -1;
+    for (var i = u8.length - 22; i >= 0 && i > u8.length - 66000; i--) {
+      if (d.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+    }
+    if (eocd < 0) throw new Error('not a zip');
+    var count = d.getUint16(eocd + 10, true), off = d.getUint32(eocd + 16, true);
+    for (var n = 0; n < count; n++) {
+      if (d.getUint32(off, true) !== 0x02014b50) break;
+      var method = d.getUint16(off + 10, true), compSize = d.getUint32(off + 20, true);
+      var nameLen = d.getUint16(off + 28, true), extraLen = d.getUint16(off + 30, true), cmtLen = d.getUint16(off + 32, true);
+      var lho = d.getUint32(off + 42, true);
+      var name = utf8(u8.subarray(off + 46, off + 46 + nameLen));
+      entries[name] = { method: method, lho: lho, size: compSize };
+      off += 46 + nameLen + extraLen + cmtLen;
+    }
+    return {
+      names: Object.keys(entries),
+      has: function (n) { return !!entries[n]; },
+      text: async function (n) {
+        var e = entries[n]; if (!e) return '';
+        var lNameLen = d.getUint16(e.lho + 26, true), lExtra = d.getUint16(e.lho + 28, true);
+        var start = e.lho + 30 + lNameLen + lExtra;
+        var raw = u8.subarray(start, start + e.size);
+        return utf8(e.method === 0 ? raw : await inflate(raw, 'deflate-raw'));
+      }
+    };
+  }
+
+  var xmlText = function (s) {
+    return s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(+n); }).replace(/&#x([0-9a-f]+);/gi, function (_, h) { return String.fromCharCode(parseInt(h, 16)); }).replace(/&amp;/g, '&');
+  };
+
+  /* Word: one string per paragraph. Table cells are paragraphs too, which is what a reviewer wants. */
+  async function fromDocx(zip) {
+    var xml = await zip.text('word/document.xml');
+    if (!xml) throw new Error('No document body found — is this a Word file?');
+    var paras = [];
+    xml.replace(/<w:p[ >][\s\S]*?<\/w:p>/g, function (p) {
+      var s = '';
+      p.replace(/<w:t(?:\s[^>]*)?>([^<]*)<\/w:t>|<w:tab\/>|<w:br\/>|<w:cr\/>/g, function (m, t) {
+        if (t !== undefined) s += xmlText(t); else if (m === '<w:tab/>') s += '\t'; else s += '\n';
+        return '';
+      });
+      s = s.replace(/[ \t]+$/g, '');
+      if (s.trim()) paras.push(s);
+      return '';
+    });
+    return { kind: 'text', label: 'Word document', units: paras, unit: 'paragraph' };
+  }
+
+  /* PowerPoint: slides in order, each paragraph of each text frame. */
+  async function fromPptx(zip) {
+    var slides = zip.names.filter(function (n) { return /^ppt\/slides\/slide\d+\.xml$/.test(n); })
+      .sort(function (a, b) { return (+a.match(/(\d+)\.xml$/)[1]) - (+b.match(/(\d+)\.xml$/)[1]); });
+    if (!slides.length) throw new Error('No slides found — is this a PowerPoint file?');
+    var units = [];
+    for (var i = 0; i < slides.length; i++) {
+      var xml = await zip.text(slides[i]);
+      units.push('— Slide ' + (i + 1) + ' —');
+      xml.replace(/<a:p>[\s\S]*?<\/a:p>/g, function (p) {
+        var s = '';
+        p.replace(/<a:t>([^<]*)<\/a:t>/g, function (_, t) { s += xmlText(t); return ''; });
+        if (s.trim()) units.push(s);
+        return '';
+      });
+    }
+    return { kind: 'text', label: 'PowerPoint deck', units: units, unit: 'paragraph' };
+  }
+
+  /* Excel: {sheetName: {A1: 'value or =formula'}} */
+  async function fromXlsx(zip) {
+    var wb = await zip.text('xl/workbook.xml');
+    if (!wb) throw new Error('No workbook found — is this an Excel file?');
+    var rels = await zip.text('xl/_rels/workbook.xml.rels');
+    var relMap = {};
+    rels.replace(/<Relationship\s[^>]*>/g, function (r) {
+      var id = /Id="([^"]+)"/.exec(r), tg = /Target="([^"]+)"/.exec(r);
+      if (id && tg) relMap[id[1]] = tg[1].replace(/^\/?(xl\/)?/, 'xl/');
+      return '';
+    });
+    var shared = [];
+    var ss = await zip.text('xl/sharedStrings.xml');
+    if (ss) ss.replace(/<si>([\s\S]*?)<\/si>/g, function (_, si) {
+      var s = ''; si.replace(/<t(?:\s[^>]*)?>([^<]*)<\/t>/g, function (_, t) { s += xmlText(t); return ''; });
+      shared.push(s); return '';
+    });
+    var sheets = {}, order = [];
+    wb.replace(/<sheet\s[^>]*>/g, function (tag) {
+      var name = /name="([^"]+)"/.exec(tag), rid = /r:id="([^"]+)"/.exec(tag);
+      if (name && rid) order.push({ name: xmlText(name[1]), path: relMap[rid[1]] });
+      return '';
+    });
+    for (var i = 0; i < order.length; i++) {
+      var xml = await zip.text(order[i].path) || '';
+      var cells = {};
+      xml.replace(/<c\s([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g, function (_, attrs, inner) {
+        var ref = /r="([A-Z]+\d+)"/.exec(attrs); if (!ref) return '';
+        var type = (/t="([^"]+)"/.exec(attrs) || [])[1];
+        inner = inner || '';
+        var f = /<f(?:\s[^>]*)?>([^<]*)<\/f>/.exec(inner), v = /<v>([^<]*)<\/v>/.exec(inner), val = '';
+        if (f) val = '=' + xmlText(f[1]);
+        else if (type === 's' && v) val = shared[+v[1]] || '';
+        else if (type === 'inlineStr') { inner.replace(/<t(?:\s[^>]*)?>([^<]*)<\/t>/g, function (_, t) { val += xmlText(t); return ''; }); }
+        else if (type === 'b' && v) val = v[1] === '1' ? 'TRUE' : 'FALSE';
+        else if (v) val = xmlText(v[1]);
+        if (val !== '') cells[ref[1]] = val;
+        return '';
+      });
+      sheets[order[i].name] = cells;
+    }
+    return { kind: 'sheets', label: 'Excel workbook', sheets: sheets, order: order.map(function (o) { return o.name; }) };
+  }
+
+  /* ---------- PDF: text from content streams, decoded through each font's ToUnicode map ---------- */
+  async function fromPdf(buf) {
+    var raw = latin1(new Uint8Array(buf));
+    if (/\/Encrypt\b/.test(raw)) throw new Error('This PDF is encrypted, so its text cannot be read here. Remove the password first.');
+    var objs = {};
+    var re = /(\d+)\s+(\d+)\s+obj\b([\s\S]*?)\bendobj/g, m;
+    while ((m = re.exec(raw))) objs[m[1]] = m[3];
+
+    var deref = function (s) { var r = /^\s*(\d+)\s+\d+\s+R/.exec(s || ''); return r ? objs[r[1]] : null; };
+    var dictBody = function (s, key) {               /* value of /key — inline dict, ref, or token */
+      var r = new RegExp('/' + key + '\\s*(\\d+\\s+\\d+\\s+R|<<[\\s\\S]*?>>|\\[[^\\]]*\\]|/[^\\s/>\\]]+|[^\\s/>]+)').exec(s || '');
+      return r ? r[1] : null;
+    };
+
+    async function streamOf(body) {
+      var s = /stream\r?\n/.exec(body); if (!s) return null;
+      var start = s.index + s[0].length, end = body.lastIndexOf('endstream');
+      if (end < 0) return null;
+      var dict = body.slice(0, s.index);
+      /* Browsers' DecompressionStream rejects anything after the end of the deflate data, and the
+         bytes before "endstream" always include a line break — so honour /Length when it is a plain
+         number, and otherwise trim the trailing whitespace. */
+      var lenTok = dictBody(dict, 'Length'), len = lenTok && /^\d+$/.test(lenTok) ? +lenTok : -1;
+      if (len >= 0 && start + len <= end) end = start + len;
+      else while (end > start && /[\r\n\s]/.test(body.charAt(end - 1))) end--;
+      var bytes = new Uint8Array(end - start);
+      for (var i = 0; i < bytes.length; i++) bytes[i] = body.charCodeAt(start + i) & 255;
+      /* Filters apply in the order listed: reportlab, for one, writes [/ASCII85Decode /FlateDecode]. */
+      var filters = (dictBody(dict, 'Filter') || '').match(/\/[A-Za-z0-9]+/g) || [];
+      for (var f = 0; f < filters.length; f++) {
+        var name = filters[f];
+        if (name === '/FlateDecode' || name === '/Fl') {
+          try { bytes = await inflate(bytes, 'deflate'); }
+          catch (e) { try { bytes = await inflate(bytes.subarray(2), 'deflate-raw'); } catch (e2) { return null; } }
+        } else if (name === '/ASCII85Decode' || name === '/A85') bytes = ascii85(bytes);
+        else if (name === '/ASCIIHexDecode' || name === '/AHx') bytes = asciiHex(bytes);
+        else return null;                                        // an image codec or something unusual
+      }
+      return { dict: dict, text: latin1(bytes) };
+    }
+    function ascii85(u8) {
+      var s = latin1(u8).replace(/^<~/, ''), out = [], tuple = [], i = 0;
+      var flush = function (n) { var v = 0; for (var k = 0; k < 5; k++) v = v * 85 + (k < n ? tuple[k] : 84); var b = [(v >>> 24) & 255, (v >>> 16) & 255, (v >>> 8) & 255, v & 255]; for (var q = 0; q < n - 1; q++) out.push(b[q]); tuple = []; };
+      for (; i < s.length; i++) {
+        var c = s.charAt(i);
+        if (c === '~') break;
+        if (/\s/.test(c)) continue;
+        if (c === 'z' && !tuple.length) { out.push(0, 0, 0, 0); continue; }
+        var code = c.charCodeAt(0) - 33; if (code < 0 || code > 84) continue;
+        tuple.push(code); if (tuple.length === 5) flush(5);
+      }
+      if (tuple.length > 1) flush(tuple.length);
+      return new Uint8Array(out);
+    }
+    function asciiHex(u8) {
+      var h = latin1(u8).replace(/>[\s\S]*$/, '').replace(/[^0-9a-fA-F]/g, ''), out = new Uint8Array(Math.ceil(h.length / 2));
+      for (var i = 0; i < h.length; i += 2) out[i / 2] = parseInt(h.substr(i, 2).padEnd(2, '0'), 16);
+      return out;
+    }
+
+    /* Object streams (PDF 1.5+) hold dictionaries inside a compressed stream. Unpack them. */
+    var keys = Object.keys(objs);
+    for (var k = 0; k < keys.length; k++) {
+      var b = objs[keys[k]];
+      if (!/\/Type\s*\/ObjStm/.test(b)) continue;
+      var st = await streamOf(b); if (!st) continue;
+      var n = +(/\/N\s+(\d+)/.exec(st.dict) || [0, 0])[1], first = +(/\/First\s+(\d+)/.exec(st.dict) || [0, 0])[1];
+      var head = st.text.slice(0, first).trim().split(/\s+/).map(Number);
+      for (var j = 0; j < n; j++) {
+        var num = head[j * 2], off = head[j * 2 + 1], next = j + 1 < n ? head[j * 2 + 3] : undefined;
+        objs[num] = st.text.slice(first + off, next !== undefined ? first + next : undefined);
+      }
+    }
+
+    var balancedDict = function (s, key) {           /* /key << ... >> with nesting */
+      var i = s.search(new RegExp('/' + key + '\\s*<<')); if (i < 0) return null;
+      i = s.indexOf('<<', i); var depth = 0, j = i;
+      for (; j < s.length - 1; j++) { if (s.substr(j, 2) === '<<') { depth++; j++; } else if (s.substr(j, 2) === '>>') { depth--; j++; if (!depth) break; } }
+      return s.slice(i, j + 1);
+    };
+
+    /* ToUnicode CMap → {bytes:1|2, map:{code:string}} */
+    var cmapCache = {};
+    async function fontMap(fontBody) {
+      var tu = dictBody(fontBody, 'ToUnicode'); var ref = tu && /^(\d+)\s+\d+\s+R/.exec(tu);
+      var key = ref ? ref[1] : null;
+      if (key && cmapCache[key]) return cmapCache[key];
+      var out = { bytes: 1, map: null, twoByte: /Identity-H|Identity-V/.test(dictBody(fontBody, 'Encoding') || '') };
+      if (out.twoByte) out.bytes = 2;
+      if (ref && objs[ref[1]]) {
+        var st = await streamOf(objs[ref[1]]);
+        if (st) {
+          var t = st.text, map = {};
+          var cs = /begincodespacerange([\s\S]*?)endcodespacerange/.exec(t);
+          if (cs) { var w = /<([0-9a-fA-F]+)>/.exec(cs[1]); if (w) out.bytes = w[1].length > 2 ? 2 : 1; }
+          var hexToStr = function (h) { var s = ''; for (var i = 0; i + 3 < h.length + 1; i += 4) { var cp = parseInt(h.substr(i, 4), 16); if (!isNaN(cp)) s += String.fromCharCode(cp); } return s; };
+          t.replace(/beginbfchar([\s\S]*?)endbfchar/g, function (_, body) {
+            body.replace(/<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]*)>/g, function (_, src, dst) { map[parseInt(src, 16)] = hexToStr(dst); return ''; });
+            return '';
+          });
+          t.replace(/beginbfrange([\s\S]*?)endbfrange/g, function (_, body) {
+            body.replace(/<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>\s*(<([0-9a-fA-F]*)>|\[([^\]]*)\])/g, function (_, lo, hi, _d, dst, arr) {
+              var a = parseInt(lo, 16), b = parseInt(hi, 16);
+              if (arr !== undefined) { var parts = arr.match(/<([0-9a-fA-F]*)>/g) || []; for (var i = 0; a + i <= b && i < parts.length; i++) map[a + i] = hexToStr(parts[i].slice(1, -1)); }
+              else { var base = hexToStr(dst); var last = base.charCodeAt(base.length - 1); for (var q = a; q <= b; q++) map[q] = base.slice(0, -1) + String.fromCharCode(last + (q - a)); }
+              return '';
+            });
+            return '';
+          });
+          out.map = map;
+        }
+      }
+      if (key) cmapCache[key] = out;
+      return out;
+    }
+
+    async function fontsFor(pageBody) {
+      var res = dictBody(pageBody, 'Resources');
+      var resBody = res && /^\d+\s+\d+\s+R/.test(res) ? deref(res) : (balancedDict(pageBody, 'Resources') || res || '');
+      var fontDict = balancedDict(resBody || '', 'Font');
+      if (!fontDict) { var fr = dictBody(resBody || '', 'Font'); fontDict = fr && /R$/.test(fr) ? deref(fr) : fontDict; }
+      var fonts = {};
+      if (fontDict) {
+        var fm, fre = /\/([^\s/<>\[\]]+)\s+(\d+)\s+\d+\s+R/g;
+        while ((fm = fre.exec(fontDict))) { if (objs[fm[2]]) fonts[fm[1]] = await fontMap(objs[fm[2]]); }
+      }
+      return fonts;
+    }
+
+    /* Page order via the page tree; fall back to object order. */
+    var pages = [];
+    var catalog = null;
+    for (var kk in objs) if (/\/Type\s*\/Catalog/.test(objs[kk])) { catalog = objs[kk]; break; }
+    var seen = {};
+    function walk(nodeBody, depth) {
+      if (!nodeBody || depth > 60) return;
+      if (/\/Type\s*\/Page\b/.test(nodeBody) && !/\/Type\s*\/Pages/.test(nodeBody)) { pages.push(nodeBody); return; }
+      var kids = dictBody(nodeBody, 'Kids'); if (!kids) return;
+      var kre = /(\d+)\s+\d+\s+R/g, km;
+      while ((km = kre.exec(kids))) { if (!seen[km[1]]) { seen[km[1]] = 1; walk(objs[km[1]], depth + 1); } }
+    }
+    if (catalog) walk(deref(dictBody(catalog, 'Pages')), 0);
+    if (!pages.length) for (var pk in objs) if (/\/Type\s*\/Page\b/.test(objs[pk]) && !/\/Type\s*\/Pages/.test(objs[pk])) pages.push(objs[pk]);
+    if (!pages.length) throw new Error('No pages found in this PDF.');
+
+    /* Tokenise a content stream and pull out the text operators. */
+    function decode(str, font) {
+      if (!font || !font.map) return font && font.bytes === 2 ? '' : str;
+      var out = '', step = font.bytes;
+      for (var i = 0; i + step - 1 < str.length; i += step) {
+        var code = step === 2 ? (str.charCodeAt(i) << 8) | str.charCodeAt(i + 1) : str.charCodeAt(i);
+        var u = font.map[code];
+        out += (u !== undefined) ? u : (step === 1 ? str.charAt(i) : '�');
+      }
+      return out;
+    }
+    function literal(s, i) {                          /* returns [string, nextIndex] for a (...) literal */
+      var depth = 1, out = ''; i++;
+      while (i < s.length && depth) {
+        var c = s.charAt(i);
+        if (c === '\\') {
+          var n = s.charAt(i + 1);
+          if (/[0-7]/.test(n)) { var oct = /^[0-7]{1,3}/.exec(s.slice(i + 1))[0]; out += String.fromCharCode(parseInt(oct, 8)); i += oct.length + 1; continue; }
+          out += { n: '\n', r: '\r', t: '\t', b: '\b', f: '\f', '(': '(', ')': ')', '\\': '\\' }[n] || (n === '\n' ? '' : n); i += 2; continue;
+        }
+        if (c === '(') depth++; else if (c === ')') { depth--; if (!depth) { i++; break; } }
+        out += c; i++;
+      }
+      return [out, i];
+    }
+    function hex(s, i) {
+      var j = s.indexOf('>', i), h = s.slice(i + 1, j).replace(/[^0-9a-fA-F]/g, ''), out = '';
+      for (var k = 0; k + 1 < h.length + 1; k += 2) out += String.fromCharCode(parseInt(h.substr(k, 2).padEnd(2, '0'), 16));
+      return [out, j + 1];
+    }
+    function extract(content, fonts) {
+      var lines = [], cur = '', font = null, i = 0, n = content.length, operands = [], lastY = null;
+      var push = function () { if (cur.trim()) lines.push(cur.replace(/\s+/g, ' ').trim()); cur = ''; };
+      while (i < n) {
+        var c = content.charAt(i);
+        if (c === '%') { while (i < n && content.charAt(i) !== '\n') i++; continue; }
+        if (/\s/.test(c)) { i++; continue; }
+        if (c === '(') { var l = literal(content, i); operands.push({ s: l[0] }); i = l[1]; continue; }
+        if (c === '<' && content.charAt(i + 1) !== '<') { var h = hex(content, i); operands.push({ s: h[0] }); i = h[1]; continue; }
+        if (c === '<' || c === '>') { i += 2; continue; }
+        if (c === '[') { var depth = 1, j = i + 1; while (j < n && depth) { var cc = content.charAt(j); if (cc === '(') { j = literal(content, j)[1]; continue; } if (cc === '[') depth++; else if (cc === ']') depth--; j++; }
+          var inner = content.slice(i + 1, j - 1), parts = [], p = 0;
+          while (p < inner.length) { var ch = inner.charAt(p); if (ch === '(') { var L = literal(inner, p); parts.push({ s: L[0] }); p = L[1]; } else if (ch === '<') { var H = hex(inner, p); parts.push({ s: H[0] }); p = H[1]; } else if (/[-\d.]/.test(ch)) { var num = /^[-\d.]+/.exec(inner.slice(p))[0]; parts.push({ n: parseFloat(num) }); p += num.length; } else p++; }
+          operands.push({ arr: parts }); i = j; continue; }
+        if (c === '/') { var nm = /^\/[^\s/\[\]()<>]*/.exec(content.slice(i))[0]; operands.push({ name: nm.slice(1) }); i += nm.length; continue; }
+        if (/[-+.\d]/.test(c)) { var nn = /^[-+.\d]+/.exec(content.slice(i))[0]; operands.push({ n: parseFloat(nn) }); i += nn.length; continue; }
+        var op = /^[A-Za-z'"*]+/.exec(content.slice(i)); if (!op) { i++; continue; } op = op[0]; i += op.length;
+        if (op === 'Tf') { var fn = operands[operands.length - 2]; font = fn && fn.name ? (fonts[fn.name] || null) : null; }
+        else if (op === 'Tj' || op === "'" || op === '"') { var so = operands[operands.length - 1]; if (op !== 'Tj') push(); if (so && so.s !== undefined) cur += decode(so.s, font); }
+        else if (op === 'TJ') { var ao = operands[operands.length - 1]; if (ao && ao.arr) for (var q = 0; q < ao.arr.length; q++) { var it = ao.arr[q]; if (it.s !== undefined) cur += decode(it.s, font); else if (it.n < -180) cur += ' '; } }
+        else if (op === 'T*') push();
+        else if (op === 'Td' || op === 'TD') { var ty = operands[operands.length - 1]; if (ty && ty.n !== undefined && Math.abs(ty.n) > 0.01) push(); else if (ty && operands[operands.length - 2] && operands[operands.length - 2].n > 40) cur += ' '; }
+        else if (op === 'Tm') { var y = operands[operands.length - 1]; if (y && y.n !== undefined) { if (lastY !== null && Math.abs(y.n - lastY) > 0.5) push(); lastY = y.n; } }
+        else if (op === 'ET' || op === 'BT') { push(); if (op === 'BT') lastY = null; }
+        operands = [];
+      }
+      push();
+      return lines;
+    }
+
+    var units = [], undecoded = 0, total = 0;
+    for (var pi = 0; pi < pages.length; pi++) {
+      var fonts = await fontsFor(pages[pi]);
+      var contents = dictBody(pages[pi], 'Contents'), streams = [];
+      if (contents) { var cm, cre = /(\d+)\s+\d+\s+R/g; while ((cm = cre.exec(contents))) streams.push(cm[1]); }
+      var text = '';
+      for (var si = 0; si < streams.length; si++) { var st2 = objs[streams[si]] && await streamOf(objs[streams[si]]); if (st2) text += st2.text + '\n'; }
+      var lines = extract(text, fonts);
+      /* Re-join lines that are only wrapped: no closing punctuation, and the next line carries on in lower case. */
+      for (var w = 0; w < lines.length - 1; w++) {
+        if (!/[.:;!?\u2014\u2013)\]"\u201d]\s*$/.test(lines[w]) && /^[a-z(]/.test(lines[w + 1]) && lines[w].length > 25) {
+          lines[w] += ' ' + lines[w + 1]; lines.splice(w + 1, 1); w--;
+        }
+      }
+      if (pages.length > 1) units.push('— Page ' + (pi + 1) + ' —');
+      for (var li = 0; li < lines.length; li++) { units.push(lines[li]); total += lines[li].length; undecoded += (lines[li].match(/�/g) || []).length; }
+    }
+    var note = '';
+    if (total && undecoded / total > 0.05) note = 'Some of this PDF’s text could not be decoded (its fonts do not carry a usable character map). The comparison below may be incomplete — export both versions to Word or plain text and compare those for a reliable result.';
+    if (!total) note = 'No readable text was found in this PDF. It is probably a scanned image; run it through OCR first.';
+    return { kind: 'text', label: 'PDF', units: units, unit: 'line', note: note };
+  }
+
+  function fromText(str, label) {
+    str = str.replace(/^﻿/, '').replace(/\r\n?/g, '\n');
+    if (/^\s*<(!doctype|html)/i.test(str)) str = str.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, '').replace(/<br\s*\/?>|<\/(p|div|li|h\d|tr)>/gi, '\n').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ');
+    var units = str.split('\n').map(function (l) { return l.replace(/\s+$/, ''); });
+    while (units.length && !units[units.length - 1].trim()) units.pop();
+    return { kind: 'text', label: label || 'text', units: units, unit: 'line' };
+  }
+
+  async function load(file) {
+    var name = file.name.toLowerCase(), buf = await file.arrayBuffer(), u8 = new Uint8Array(buf);
+    var isZip = u8[0] === 0x50 && u8[1] === 0x4B, isPdf = latin1(u8.subarray(0, 5)) === '%PDF-';
+    if (isPdf || /\.pdf$/.test(name)) return await fromPdf(buf);
+    if (isZip) {
+      var zip = await readZip(buf);
+      if (zip.has('word/document.xml')) return await fromDocx(zip);
+      if (zip.has('xl/workbook.xml')) return await fromXlsx(zip);
+      if (zip.names.some(function (n) { return /^ppt\/slides\/slide\d+\.xml$/.test(n); })) return await fromPptx(zip);
+      throw new Error('This is a zip archive, not a document this tool understands.');
+    }
+    if (/\.(docx|xlsx|pptx)$/.test(name)) throw new Error('This does not look like a valid Office file. Older .doc, .xls and .ppt formats are not supported — save it as .docx, .xlsx or .pptx first.');
+    var text = utf8(u8);
+    if (/�/.test(text) && u8.some(function (b) { return b === 0; })) throw new Error('This looks like a binary file, not text.');
+    return fromText(text, /\.csv$/.test(name) ? 'CSV' : /\.json$/.test(name) ? 'JSON' : /\.(html?|xml)$/.test(name) ? 'markup' : 'text file');
+  }
+
+  /* ---------- diff (Myers, O(ND)) ---------- */
+  function diff(a, b, norm) {
+    var A = a.map(norm), B = b.map(norm), N = A.length, M = B.length, MAX = N + M;
+    if (!MAX) return [];
+    var v = {}, trace = [], d, k, x, y;
+    v[1] = 0;
+    outer: for (d = 0; d <= MAX; d++) {
+      var snap = {}; for (var key in v) snap[key] = v[key]; trace.push(snap);
+      for (k = -d; k <= d; k += 2) {
+        if (k === -d || (k !== d && v[k - 1] < v[k + 1])) x = v[k + 1]; else x = v[k - 1] + 1;
+        y = x - k;
+        while (x < N && y < M && A[x] === B[y]) { x++; y++; }
+        v[k] = x;
+        if (x >= N && y >= M) break outer;
+      }
+      if (trace.length > 4000) break;   /* pathological: give up on optimality, keep going */
+    }
+    var ops = []; x = N; y = M;
+    for (d = trace.length - 1; d >= 0; d--) {
+      var vv = trace[d]; k = x - y;
+      var prevK = (k === -d || (k !== d && vv[k - 1] < vv[k + 1])) ? k + 1 : k - 1;
+      var px = vv[prevK], py = px - prevK;
+      while (x > px && y > py) { ops.push({ t: '=', a: x - 1, b: y - 1 }); x--; y--; }
+      if (d > 0) { if (x === px) ops.push({ t: '+', b: py }); else ops.push({ t: '-', a: px }); }
+      x = px; y = py;
+    }
+    return ops.reverse();
+  }
+
+  var tokens = function (s) { return s.match(/\s+|[A-Za-z0-9À-ɏ'’]+|[^\sA-Za-z0-9À-ɏ'’]/g) || []; };
+  function inlineDiff(a, b, norm) {
+    var ta = tokens(a), tb = tokens(b), ops = diff(ta, tb, norm), L = '', R = '';
+    ops.forEach(function (o) {
+      if (o.t === '=') { L += esc(ta[o.a]); R += esc(tb[o.b]); }
+      else if (o.t === '-') L += '<span class="w-del">' + esc(ta[o.a]) + '</span>';
+      else R += '<span class="w-add">' + esc(tb[o.b]) + '</span>';
+    });
+    return [L, R];
+  }
+  function similarity(a, b) {
+    var ta = tokens(a).filter(function (t) { return t.trim(); }), tb = tokens(b).filter(function (t) { return t.trim(); });
+    if (!ta.length || !tb.length) return 0;
+    var same = diff(ta, tb, function (s) { return s; }).filter(function (o) { return o.t === '='; }).length;
+    return (2 * same) / (ta.length + tb.length);
+  }
+
+  /* Group the raw edit script into rows: '=', '+', '-', and '~' (a removal paired with an addition it resembles). */
+  function rows(ops, a, b, norm) {
+    var out = [], i = 0;
+    while (i < ops.length) {
+      if (ops[i].t === '=') { out.push({ t: '=', a: a[ops[i].a] }); i++; continue; }
+      var dels = [], adds = [];
+      while (i < ops.length && ops[i].t !== '=') { (ops[i].t === '-' ? dels : adds).push(ops[i]); i++; }
+      var used = {};
+      dels.forEach(function (d) {
+        var best = -1, bestScore = 0.45;
+        adds.forEach(function (ad, idx) { if (used[idx]) return; var s = similarity(a[d.a], b[ad.b]); if (s > bestScore) { bestScore = s; best = idx; } });
+        if (best >= 0) { used[best] = 1; out.push({ t: '~', a: a[d.a], b: b[adds[best].b] }); }
+        else out.push({ t: '-', a: a[d.a] });
+      });
+      adds.forEach(function (ad, idx) { if (!used[idx]) out.push({ t: '+', b: b[ad.b] }); });
+    }
+    return out;
+  }
+
+  /* ---------- rendering ---------- */
+  var summary = $('#dfSummary'), notes = $('#dfNotes'), body = $('#dfBody'), out = $('#dfOut');
+  function normaliser() {
+    return $('#dfLoose').checked ? function (s) { return s.toLowerCase().replace(/\s+/g, ' ').trim(); } : function (s) { return s; };
+  }
+
+  function renderText(A, B) {
+    var norm = normaliser(), ops = diff(A.units, B.units, norm), rs = rows(ops, A.units, B.units, norm);
+    var counts = { '+': 0, '-': 0, '~': 0, '=': 0 }; rs.forEach(function (r) { counts[r.t]++; });
+    var changed = counts['+'] + counts['-'] + counts['~'];
+    var unitName = A.unit === B.unit ? A.unit : 'item';
+    var pl = function (n, w) { return n + ' ' + w + (n === 1 ? '' : 's'); };
+    summary.className = 'verify-summary ' + (changed ? 'warn' : 'ok');
+    summary.textContent = changed
+      ? counts['~'] + ' reworded · ' + counts['+'] + ' added · ' + counts['-'] + ' removed · ' + counts['='] + ' unchanged  (' + pl(A.units.length, unitName) + ' → ' + pl(B.units.length, unitName) + ')'
+      : 'No differences in the text — ' + pl(counts['='], unitName) + ' identical.';
+    var rep = ['Document diff — ' + A.label + ' → ' + B.label, summary.textContent, ''];
+
+    var hide = $('#dfContext').checked, html = '<div class="dd-view">', run = [];
+    var flush = function () {
+      if (!run.length) return;
+      if (hide && run.length > 3) {
+        html += '<div class="dd-row dd-same">' + rowHtml(run[0]) + '</div>';
+        html += '<button type="button" class="dd-fold" data-n="' + (run.length - 2) + '">… ' + (run.length - 2) + ' unchanged ' + unitName + (run.length - 2 === 1 ? '' : 's') + ' hidden — show …</button><div class="dd-hidden" hidden>';
+        for (var i = 1; i < run.length - 1; i++) html += '<div class="dd-row dd-same">' + rowHtml(run[i]) + '</div>';
+        html += '</div><div class="dd-row dd-same">' + rowHtml(run[run.length - 1]) + '</div>';
+      } else run.forEach(function (r) { html += '<div class="dd-row dd-same">' + rowHtml(r) + '</div>'; });
+      run = [];
+    };
+    var rowHtml = function (r) {
+      if (r.t === '=') return '<span class="dd-mark" aria-hidden="true">&nbsp;</span><span class="dd-txt">' + esc(r.a) + '</span>';
+      if (r.t === '-') return '<span class="dd-mark" aria-label="removed">−</span><span class="dd-txt"><span class="w-del">' + esc(r.a) + '</span></span>';
+      if (r.t === '+') return '<span class="dd-mark" aria-label="added">+</span><span class="dd-txt"><span class="w-add">' + esc(r.b) + '</span></span>';
+      var lr = inlineDiff(r.a, r.b, norm);
+      return '<span class="dd-mark" aria-label="reworded">~</span><span class="dd-txt"><span class="dd-before">' + lr[0] + '</span><span class="dd-after">' + lr[1] + '</span></span>';
+    };
+    rs.forEach(function (r) {
+      if (r.t === '=') { run.push(r); rep.push('  ' + r.a); return; }
+      flush();
+      html += '<div class="dd-row dd-' + ({ '+': 'add', '-': 'del', '~': 'chg' })[r.t] + '">' + rowHtml(r) + '</div>';
+      if (r.t === '~') rep.push('- ' + r.a, '+ ' + r.b); else rep.push((r.t === '-' ? '- ' : '+ ') + (r.t === '-' ? r.a : r.b));
+    });
+    flush();
+    html += '</div>';
+    body.innerHTML = html;
+    body.querySelectorAll('.dd-fold').forEach(function (btn) {
+      btn.addEventListener('click', function () { var h = btn.nextElementSibling; h.hidden = !h.hidden; btn.textContent = h.hidden ? '… ' + btn.dataset.n + ' unchanged hidden — show …' : '… hide unchanged …'; });
+    });
+    state.report = rep.join('\n');
+  }
+
+  function renderSheets(A, B) {
+    var norm = normaliser(), names = [], seen = {};
+    A.order.concat(B.order).forEach(function (n) { if (!seen[n]) { seen[n] = 1; names.push(n); } });
+    var html = '', changes = 0, rep = ['Document diff — Excel workbook', ''];
+    var colOf = function (ref) { return ref.replace(/\d+/, ''); }, rowOf = function (ref) { return +ref.replace(/[A-Z]+/, ''); };
+    var colNum = function (c) { var n = 0; for (var i = 0; i < c.length; i++) n = n * 26 + (c.charCodeAt(i) - 64); return n; };
+    names.forEach(function (name) {
+      var a = A.sheets[name], b = B.sheets[name];
+      if (!a) { html += '<h4 class="dd-sheet">' + esc(name) + ' <span class="w-add">sheet added</span> — ' + Object.keys(b).length + ' cells</h4>'; rep.push('+ Sheet "' + name + '" added'); changes++; return; }
+      if (!b) { html += '<h4 class="dd-sheet">' + esc(name) + ' <span class="w-del">sheet removed</span></h4>'; rep.push('- Sheet "' + name + '" removed'); changes++; return; }
+      var refs = Object.keys(a).concat(Object.keys(b)).filter(function (r, i, arr) { return arr.indexOf(r) === i; })
+        .sort(function (x, y) { return rowOf(x) - rowOf(y) || colNum(colOf(x)) - colNum(colOf(y)); });
+      var rows = '';
+      refs.forEach(function (r) {
+        var va = a[r] === undefined ? '' : a[r], vb = b[r] === undefined ? '' : b[r];
+        if (norm(va) === norm(vb)) return;
+        changes++;
+        var kind = va === '' ? 'added' : vb === '' ? 'cleared' : 'changed';
+        rows += '<tr><td class="mono">' + esc(r) + '</td><td>' + (va === '' ? '<span class="dd-empty">empty</span>' : esc(va)) + '</td><td>' + (vb === '' ? '<span class="dd-empty">empty</span>' : esc(vb)) + '</td><td>' + kind + '</td></tr>';
+        rep.push(name + '!' + r + ': ' + JSON.stringify(va) + ' → ' + JSON.stringify(vb));
+      });
+      html += '<h4 class="dd-sheet">' + esc(name) + (rows ? '' : ' <span class="dd-empty">no changes</span>') + '</h4>';
+      if (rows) html += '<div class="tablewrap"><table><thead><tr><th>Cell</th><th>Original</th><th>Revised</th><th>Change</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+    });
+    summary.className = 'verify-summary ' + (changes ? 'warn' : 'ok');
+    summary.textContent = changes ? changes + ' cell' + (changes === 1 ? '' : 's') + ' differ across ' + names.length + ' sheet' + (names.length === 1 ? '' : 's') + '.' : 'No differences in any cell across ' + names.length + ' sheet' + (names.length === 1 ? '' : 's') + '.';
+    rep.splice(1, 0, summary.textContent);
+    body.innerHTML = html;
+    state.report = rep.join('\n');
+  }
+
+  async function run() {
+    out.hidden = false; notes.innerHTML = ''; body.innerHTML = '';
+    summary.className = 'verify-summary'; summary.textContent = 'Reading…';
+    try {
+      var A = state.a || (($('#dfTextA').value.trim()) ? fromText($('#dfTextA').value, 'pasted text') : null);
+      var B = state.b || (($('#dfTextB').value.trim()) ? fromText($('#dfTextB').value, 'pasted text') : null);
+      if (!A || !B) throw new Error('Two versions are needed — a file or pasted text on each side.');
+      if (A.kind !== B.kind) throw new Error('One side is a spreadsheet and the other is a document. Compare like with like.');
+      var n = [];
+      if (A.note) n.push('Original: ' + A.note); if (B.note) n.push('Revised: ' + B.note);
+      notes.innerHTML = n.map(function (t) { return '<p class="sub dd-note">' + esc(t) + '</p>'; }).join('');
+      if (A.kind === 'sheets') renderSheets(A, B); else renderText(A, B);
+      $('#dfCopy').hidden = false;
+    } catch (e) {
+      summary.className = 'verify-summary bad'; summary.textContent = e.message || String(e);
+      $('#dfCopy').hidden = true;
+    }
+  }
+
+  function wire(side, dropId, inputId, nameId, textId) {
+    var drop = $(dropId), input = $(inputId), nameEl = $(nameId), text = $(textId);
+    async function take(file) {
+      if (!file) return;
+      nameEl.textContent = 'Reading ' + file.name + '…';
+      try {
+        var doc = await load(file);
+        state[side] = doc; text.value = '';
+        var size = doc.kind === 'sheets' ? doc.order.length + ' sheet' + (doc.order.length === 1 ? '' : 's') : doc.units.length + ' ' + doc.unit + (doc.units.length === 1 ? '' : 's');
+        nameEl.textContent = file.name + ' — ' + doc.label + ', ' + size;
+        if (state.a && state.b) run();
+      } catch (e) { state[side] = null; nameEl.textContent = 'Could not read ' + file.name + ': ' + (e.message || e); }
+    }
+    input.addEventListener('change', function () { take(input.files[0]); input.value = ''; });
+    ['dragenter', 'dragover'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
+    ['dragleave', 'drop'].forEach(function (ev) { drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove('over'); }); });
+    drop.addEventListener('drop', function (e) { take(e.dataTransfer.files[0]); });
+    text.addEventListener('input', function () { if (text.value.trim()) { state[side] = null; nameEl.textContent = 'Using pasted text'; } });
+  }
+  wire('a', '#dfDropA', '#dfInA', '#dfNameA', '#dfTextA');
+  wire('b', '#dfDropB', '#dfInB', '#dfNameB', '#dfTextB');
+
+  $('#dfRun').addEventListener('click', run);
+  $('#dfLoose').addEventListener('change', function () { if (!out.hidden) run(); });
+  $('#dfContext').addEventListener('change', function () { if (!out.hidden) run(); });
+  $('#dfClear').addEventListener('click', function () {
+    state.a = state.b = null; state.report = '';
+    $('#dfTextA').value = $('#dfTextB').value = '';
+    $('#dfNameA').textContent = $('#dfNameB').textContent = 'No file yet';
+    out.hidden = true; $('#dfCopy').hidden = true; body.innerHTML = ''; notes.innerHTML = '';
+  });
+  $('#dfCopy').addEventListener('click', function () {
+    var btn = $('#dfCopy'), done = function (m) { btn.textContent = m; setTimeout(function () { btn.textContent = 'Copy report'; }, 1400); };
+    var fallback = function () { var ta = document.createElement('textarea'); ta.value = state.report; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done('Copied'); } catch (e) { done('Could not copy'); } ta.remove(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(state.report).then(function () { done('Copied'); }, fallback); else fallback();
+  });
+})();
+</script>
+
+<script>
+/* ================= Email header reader ================= */
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  if (!$('#ehRun')) return;
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var report = '';
+
+  /* ---------- examples (all domains reserved for documentation: nothing here is a real organisation) ---------- */
+  var EX = {
+    ok: [
+      'Delivered-To: dan@example.org',
+      'Received: from mail-sor-f41.example.net (mail-sor-f41.example.net. [209.85.220.41])',
+      '        by mx.example.org with ESMTPS id x12si3384qtb.51.2026.09.01.05.04.12',
+      '        for <dan@example.org>',
+      '        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);',
+      '        Tue, 01 Sep 2026 05:04:13 -0700 (PDT)',
+      'Authentication-Results: mx.example.org;',
+      '       dkim=pass header.i=@example.com header.s=20230601 header.b=a1B2c3D4;',
+      '       spf=pass (example.org: domain of jane.smith@example.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=jane.smith@example.com;',
+      '       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=example.com',
+      'Received: from smtp.example.com (smtp.example.com [203.0.113.25])',
+      '        by mail-sor-f41.example.net with ESMTPS id 8d1e; Tue, 01 Sep 2026 05:04:11 -0700 (PDT)',
+      'Received: from LAPTOP-JS (unknown [10.20.4.117])',
+      '        by smtp.example.com with ESMTPSA id 4Wq2; Tue, 01 Sep 2026 13:04:09 +0100 (BST)',
+      'DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com; s=20230601;',
+      '        h=from:to:subject:date:message-id:mime-version:content-type; bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=; b=a1B2c3D4',
+      'From: Jane Smith <jane.smith@example.com>',
+      'To: Dan <dan@example.org>',
+      'Subject: Minutes from this morning',
+      'Date: Tue, 1 Sep 2026 13:04:08 +0100',
+      'Message-ID: <CAF3xk9=7Qb@mail.example.com>',
+      'MIME-Version: 1.0',
+      'Content-Type: multipart/alternative; boundary="000000000000a1b2c3"',
+      'X-Mailer: Microsoft Outlook 16.0'
+    ].join('\n'),
+    spoof: [
+      'Received: from mx1.example.org (10.0.0.12) by mailbox.example.org with Microsoft SMTP Server (TLS) id 15.20.7; Tue, 1 Sep 2026 09:41:02 +0000',
+      'Received: from vps-77a1.cheaphost.example (vps-77a1.cheaphost.example [198.51.100.77])',
+      '        by mx1.example.org with ESMTP id 1uk6-0004; Tue, 01 Sep 2026 09:41:01 +0000',
+      'Received: from [192.168.1.5] (unknown [198.51.100.77]) by vps-77a1.cheaphost.example with SMTP; Sat, 29 Aug 2026 03:12:44 +0300',
+      'Authentication-Results: mx1.example.org;',
+      '       spf=fail (sender IP is 198.51.100.77) smtp.mailfrom=payroll@northbank-example.com;',
+      '       dkim=none (message not signed) header.d=none;',
+      '       dmarc=fail action=quarantine header.from=northbank-example.com;',
+      '       compauth=fail reason=000',
+      'Received-SPF: Fail (mx1.example.org: domain of payroll@northbank-example.com does not designate 198.51.100.77 as permitted sender)',
+      'From: "North Bank Payroll" <payroll@northbank-example.com>',
+      'Reply-To: northbank.payroll.desk@freemail.example',
+      'To: dan@example.org',
+      'Subject: URGENT: Update your bank details before Friday',
+      'Date: Sat, 29 Aug 2026 03:12:40 +0300',
+      'Message-ID: <20260829001240.9f1a2@vps-77a1.cheaphost.example>',
+      'X-Priority: 1 (Highest)',
+      'X-Mailer: PHPMailer 6.8.0 (https://github.com/PHPMailer/PHPMailer)',
+      'MIME-Version: 1.0',
+      'Content-Type: text/html; charset="UTF-8"'
+    ].join('\n'),
+    list: [
+      'Received: from lists.example.net (lists.example.net [192.0.2.30])',
+      '        by mx.example.org with ESMTPS id q7; Tue, 01 Sep 2026 16:20:31 +0000',
+      'Authentication-Results: mx.example.org;',
+      '       spf=pass smtp.mailfrom=governance-bounces@lists.example.net;',
+      '       dkim=pass header.d=lists.example.net header.s=list;',
+      '       dkim=fail (body hash did not verify) header.d=example.com header.s=corp;',
+      '       dmarc=pass (p=NONE) header.from=example.com;',
+      '       arc=pass (i=1 spf=pass dkim=pass dmarc=pass)',
+      'ARC-Seal: i=1; a=rsa-sha256; t=1788625229; cv=none; d=lists.example.net; s=arc; b=Zz9',
+      'ARC-Message-Signature: i=1; a=rsa-sha256; d=lists.example.net; s=arc; h=from:to:subject; b=Yy8',
+      'ARC-Authentication-Results: i=1; lists.example.net; spf=pass smtp.mailfrom=a.other@example.com; dkim=pass header.d=example.com; dmarc=pass header.from=example.com',
+      'Received: from smtp.example.com (smtp.example.com [203.0.113.25])',
+      '        by lists.example.net with ESMTPS id m2; Tue, 01 Sep 2026 16:20:28 +0000',
+      'DKIM-Signature: v=1; a=rsa-sha256; d=lists.example.net; s=list; h=from:to:subject:list-id; b=Xx7',
+      'DKIM-Signature: v=1; a=rsa-sha256; d=example.com; s=corp; h=from:to:subject; b=Ww6',
+      'From: A. N. Other <a.other@example.com>',
+      'To: governance@lists.example.net',
+      'Subject: [governance] Draft retention schedule for comment',
+      'Date: Tue, 1 Sep 2026 17:20:25 +0100',
+      'Message-ID: <7e1f@example.com>',
+      'List-Id: Governance discussion <governance.lists.example.net>',
+      'List-Unsubscribe: <mailto:governance-leave@lists.example.net>',
+      'Precedence: list',
+      'Return-Path: <governance-bounces@lists.example.net>'
+    ].join('\n')
+  };
+
+  /* ---------- glossary: what each header is, in plain words ---------- */
+  var GLOSS = {
+    'received': 'A stamp added by every mail server the message passed through. Read from the bottom up: the lowest one is where it started.',
+    'from': 'Who the message says it is from. This is just text the sender typed — it is not checked on its own, which is why the other checks exist.',
+    'to': 'Who it was addressed to.', 'cc': 'Who was copied in.', 'bcc': 'Blind copies — normally stripped before delivery, so seeing this is unusual.',
+    'reply-to': 'Where a reply goes when you press Reply. When this differs from the From address, replies go somewhere the From line does not show.',
+    'sender': 'Who actually sent it on behalf of the From address — used by assistants, apps and mailing lists.',
+    'return-path': 'Where bounces go. Set by the sending server, not the sender, so it often reveals the real sending system.',
+    'subject': 'The subject line.', 'date': 'When the sender’s software says it was written. Set by the sender, so it can be wrong or faked.',
+    'message-id': 'A unique tag for this message, usually ending in the domain of the system that created it — another clue to the real origin.',
+    'in-reply-to': 'The Message-ID this is replying to.', 'references': 'The chain of Message-IDs in this conversation.',
+    'mime-version': 'Says the message uses the modern structure that allows attachments and formatting. Always 1.0.',
+    'content-type': 'What kind of content the message holds — plain text, HTML, or several parts such as text plus attachments.',
+    'content-transfer-encoding': 'How the content was encoded for transport.',
+    'dkim-signature': 'A digital signature over parts of the message, made with a key belonging to the domain in d=. The receiving server checks it against a public key in DNS; the result is in Authentication-Results.',
+    'authentication-results': 'The receiving server’s verdict on SPF, DKIM and DMARC. This is the line that matters most.',
+    'received-spf': 'The SPF result on its own: whether the sending server’s address is on the list the domain publishes.',
+    'arc-seal': 'Part of ARC — a way for a forwarder or mailing list to pass along the checks it saw, so the final receiver can trust them even after the message was altered in transit.',
+    'arc-message-signature': 'Part of ARC (see ARC-Seal).', 'arc-authentication-results': 'The checks as they stood at an earlier hop, preserved by ARC.',
+    'x-mailer': 'The program used to send the message. Bulk-mail scripts, marketing platforms and desktop clients each leave a recognisable name here.',
+    'user-agent': 'The program used to send the message (the same idea as X-Mailer).',
+    'x-originating-ip': 'The address of the device the message was written on, where the sending service records it.',
+    'x-priority': 'A priority flag set by the sender. "Highest" and "Urgent" are common in pressure tactics.', 'importance': 'A priority flag set by the sender.', 'x-msmail-priority': 'A priority flag set by the sender.',
+    'precedence': '"bulk" or "list" means automated or mailing-list mail; it asks auto-replies to stay quiet.',
+    'list-id': 'Identifies the mailing list this came through.', 'list-unsubscribe': 'How to leave the list. Its presence means this is list or marketing mail.',
+    'list-unsubscribe-post': 'Lets a mail client offer a one-click unsubscribe.',
+    'auto-submitted': 'Marks mail generated automatically rather than written by a person.',
+    'x-auto-response-suppress': 'Asks Exchange not to send out-of-office replies.',
+    'thread-topic': 'Outlook’s record of the conversation subject.', 'thread-index': 'Outlook’s internal thread tracking value.',
+    'delivered-to': 'The mailbox the message was finally delivered to.', 'x-received': 'A Google-internal receipt stamp, like Received.',
+    'x-google-dkim-signature': 'Google’s internal signature, separate from the public DKIM one.', 'x-gm-message-state': 'Google-internal tracking data.',
+    'x-spam-status': 'The spam filter’s verdict and score.', 'x-spam-score': 'The spam filter’s score.', 'x-spam-flag': 'Whether the spam filter flagged it.',
+    'x-forefront-antispam-report': 'Microsoft’s spam analysis, encoded. CIP is the connecting IP; SCL is the spam confidence level.',
+    'x-microsoft-antispam': 'Microsoft’s spam analysis.', 'x-microsoft-antispam-message-info': 'Microsoft’s spam analysis (encrypted).',
+    'x-ms-exchange-organization-scl': 'Microsoft’s spam confidence level: -1 is trusted, 1 is clean, 5–6 is likely spam, 9 is certain.',
+    'x-ms-exchange-organization-authas': 'Whether Exchange treated the sender as internal or anonymous.',
+    'x-ms-has-attach': 'Whether Exchange thinks the message has an attachment.', 'x-ms-tnef-correlator': 'Outlook rich-text attachment tracking.',
+    'organization': 'Free text the sender chose.', 'disposition-notification-to': 'Asks for a read receipt.', 'return-receipt-to': 'Asks for a delivery receipt.',
+    'errors-to': 'An old way of saying where bounces go.', 'x-envelope-from': 'Where bounces go, as recorded by one server.', 'x-sender': 'The sending address as one system saw it.',
+    'x-original-sender': 'The original sender, preserved through forwarding.', 'x-forwarded-to': 'Where the message was forwarded to.', 'x-forwarded-for': 'Who it was forwarded on behalf of.',
+    'feedback-id': 'A tag used by bulk senders to track complaints.', 'x-report-abuse': 'Where to report abuse from this sender.',
+    'x-virus-scanned': 'A note that an antivirus scanner looked at it.', 'accept-language': 'The sender’s language preference.', 'content-language': 'The language of the content.',
+    'x-ms-exchange-crosstenant-authas': 'How Exchange authenticated the sender when the message crossed between organisations.',
+    'x-ms-exchange-crosstenant-fromentityheader': 'Whether the message came from inside the organisation, from the internet, or from a partner.',
+    'x-ms-exchange-transport-crosstenantheadersstamped': 'Which Exchange server stamped the cross-organisation headers.'
+  };
+  function gloss(name) {
+    var n = name.toLowerCase();
+    if (GLOSS[n]) return GLOSS[n];
+    if (/^resent-/.test(n)) return 'Added when a message is resent (bounced on) by someone rather than forwarded inside a new message.';
+    if (/^x-ms-exchange/.test(n)) return 'An internal Microsoft Exchange tracking header.';
+    if (/^x-ses-|^x-mailgun-|^x-sg-|^x-mandrill|^x-postmark|^x-sparkpost/.test(n)) return 'Added by the bulk-email service that sent the message.';
+    if (/^x-/.test(n)) return 'A custom header added by one of the mail systems along the way. No standard meaning.';
+    return 'A standard mail header with no particular bearing on where the message came from.';
+  }
+
+  /* ---------- parsing ---------- */
+  function unfold(text) {
+    text = text.replace(/\r\n?/g, '\n').replace(/^\s*\n+/, '');
+    /* Gmail's "Show original" puts a summary block first, then a blank line, then the headers. */
+    var parts = text.split(/\n\s*\n/);
+    var i = 0;
+    while (i < parts.length - 1 && !/^(Received|Delivered-To|Return-Path|X-Received|ARC-Seal|Authentication-Results):/im.test(parts[i]) && /^(Received|Delivered-To|Return-Path|X-Received|ARC-Seal|Authentication-Results):/im.test(parts[i + 1])) i++;
+    var block = parts[i] || '';
+    var lines = block.split('\n'), out = [];
+    lines.forEach(function (l) {
+      if (/^[ \t]/.test(l) && out.length) out[out.length - 1] += ' ' + l.trim();
+      else if (/^[A-Za-z0-9-]+\s*:/.test(l)) out.push(l);
+      else if (out.length) out[out.length - 1] += ' ' + l.trim();
+    });
+    return out.map(function (l) {
+      var c = l.indexOf(':');
+      return { name: l.slice(0, c).trim(), lname: l.slice(0, c).trim().toLowerCase(), value: l.slice(c + 1).trim() };
+    });
+  }
+  function all(H, n) { return H.filter(function (h) { return h.lname === n; }).map(function (h) { return h.value; }); }
+  function first(H, n) { var a = all(H, n); return a.length ? a[0] : ''; }
+
+  function parseAddr(v) {
+    if (!v) return null;
+    var m = /<([^>]+)>/.exec(v), addr = (m ? m[1] : (v.match(/[^\s"<>,;]+@[^\s"<>,;]+/) || [''])[0]).trim().toLowerCase();
+    var name = m ? v.slice(0, m.index).replace(/^\s*"?|"?\s*$/g, '').trim() : '';
+    if (name.charAt(0) === '"') name = name.slice(1, -1);
+    var dom = addr.indexOf('@') >= 0 ? addr.split('@')[1] : '';
+    return { name: name, addr: addr, domain: dom, raw: v };
+  }
+  var SUFFIX2 = /(^|\.)(co|org|ac|gov|nhs|police|sch|ltd|plc|me|net)\.uk$|(^|\.)(com|net|org|edu|gov)\.(au|nz|br|mx|sg|hk|tw|za|in)$|(^|\.)co\.(jp|kr|il|nz|za)$|(^|\.)com\.[a-z]{2}$/;
+  function orgDomain(d) {
+    d = (d || '').toLowerCase().replace(/\.$/, ''); if (!d) return '';
+    var p = d.split('.'); var n = SUFFIX2.test(d) ? 3 : 2;
+    return p.slice(-n).join('.');
+  }
+  function parseDate(s) {
+    if (!s) return null;
+    var d = new Date(s.replace(/\s*\([^)]*\)\s*$/, ''));
+    return isNaN(d.getTime()) ? null : d;
+  }
+  function fmt(d) {
+    if (!d) return '';
+    return d.toLocaleString(undefined, { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+  function span(sec) {
+    if (sec < 0) return 'clocks disagree';
+    if (sec < 60) return sec + ' s'; if (sec < 3600) return Math.round(sec / 60) + ' min';
+    if (sec < 86400) return (sec / 3600).toFixed(1).replace(/\.0$/, '') + ' h'; return (sec / 86400).toFixed(1).replace(/\.0$/, '') + ' days';
+  }
+  var isPrivate = function (ip) { return /^(10\.|127\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.|fe80:|fc|fd|::1$)/i.test(ip); };
+
+  function parseReceived(v) {
+    var r = { raw: v };
+    var semi = v.lastIndexOf(';'); r.date = semi >= 0 ? parseDate(v.slice(semi + 1).trim()) : null; r.dateRaw = semi >= 0 ? v.slice(semi + 1).trim() : '';
+    var head = semi >= 0 ? v.slice(0, semi) : v;
+    var f = /^\s*from\s+(\S+)(?:\s+\(([^)]*)\))?/i.exec(head); if (f) { r.from = f[1]; r.fromInfo = f[2] || ''; }
+    var ip = /\[(?:IPv6:)?([0-9a-f.:]+)\]/i.exec(head); r.ip = ip ? ip[1] : '';
+    var by = /\bby\s+(\S+)/i.exec(head); r.by = by ? by[1].replace(/[();]$/, '') : '';
+    var w = /\bwith\s+(\S+)/i.exec(head); r.with = w ? w[1].replace(/[();]$/, '') : '';
+    var id = /\bid\s+(\S+)/i.exec(head); r.id = id ? id[1].replace(/[();]$/, '') : '';
+    var fr = /\bfor\s+<?([^\s;>]+)>?/i.exec(head); r.for = fr ? fr[1] : '';
+    r.tls = /ESMTPSA?\b|TLS|SSL/i.test(r.with) || /\bTLS/i.test(head);
+    r.auth = /ESMTPSA|ESMTPA\b/i.test(r.with);
+    r.local = /^\[?(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(r.ip) || /^\[?(10\.|192\.168\.)/.test(r.from || '');
+    return r;
+  }
+
+  function parseAuth(v) {
+    var out = { server: '', spf: null, dkim: [], dmarc: null, arc: null, compauth: null };
+    var parts = v.split(';').map(function (p) { return p.trim(); }).filter(Boolean);
+    out.server = parts.shift() || '';
+    parts.forEach(function (p) {
+      var m = /^(spf|dkim|dmarc|arc|compauth|iprev)=(\w+)/i.exec(p); if (!m) return;
+      var method = m[1].toLowerCase(), res = m[2].toLowerCase();
+      var prop = function (k) { var r = new RegExp('\\b' + k + '=([^\\s;()]+)', 'i').exec(p); return r ? r[1].toLowerCase() : ''; };
+      var comment = (/\(([^)]*)\)/.exec(p) || [])[1] || '';
+      var rec = { result: res, comment: comment };
+      if (method === 'spf') { rec.mailfrom = prop('smtp.mailfrom').replace(/^.*@/, ''); rec.helo = prop('smtp.helo'); out.spf = rec; }
+      else if (method === 'dkim') { rec.d = prop('header.d') || prop('header.i').replace(/^.*@/, ''); rec.s = prop('header.s'); out.dkim.push(rec); }
+      else if (method === 'dmarc') { rec.from = prop('header.from'); rec.action = prop('action'); rec.policy = (/\bp=(\w+)/i.exec(p) || [])[1] || ''; out.dmarc = rec; }
+      else if (method === 'arc') out.arc = rec;
+      else if (method === 'compauth') { rec.reason = prop('reason'); out.compauth = rec; }
+    });
+    return out;
+  }
+
+  /* ---------- analysis ---------- */
+  function analyse(text) {
+    var H = unfold(text);
+    if (!H.length) throw new Error('No headers found. Paste the raw headers — each line looks like "Name: value".');
+    var from = parseAddr(first(H, 'from')), replyTo = parseAddr(first(H, 'reply-to')), sender = parseAddr(first(H, 'sender'));
+    var rp = parseAddr(first(H, 'return-path')), to = first(H, 'to'), subject = first(H, 'subject');
+    var date = parseDate(first(H, 'date')), msgid = first(H, 'message-id'), msgDom = (/@([^>\s]+)/.exec(msgid) || [])[1] || '';
+    var mailer = first(H, 'x-mailer') || first(H, 'user-agent');
+    var received = all(H, 'received').map(parseReceived).reverse();          /* oldest first */
+    var auths = all(H, 'authentication-results').map(parseAuth);
+    var auth = auths[0] || null;                                              /* the final receiver's verdict is on top */
+    var spfHeader = first(H, 'received-spf');
+    var sigs = all(H, 'dkim-signature').map(function (v) { return { d: (/\bd=([^;\s]+)/.exec(v) || [])[1] || '', s: (/\bs=([^;\s]+)/.exec(v) || [])[1] || '', h: (/\bh=([^;]+)/.exec(v) || [])[1] || '' }; });
+    var arcPresent = all(H, 'arc-seal').length > 0;
+    var fromOrg = from ? orgDomain(from.domain) : '';
+    var flags = [], checks = { spf: null, dkim: null, dmarc: null };
+
+    /* SPF */
+    var spf = auth && auth.spf;
+    if (!spf && spfHeader) { var sm = /^(\w+)/.exec(spfHeader); spf = { result: sm ? sm[1].toLowerCase() : 'none', mailfrom: ((/smtp\.mailfrom=([^\s;]+)/i.exec(spfHeader) || [])[1] || (rp ? rp.addr : '')).replace(/^.*@/, ''), comment: '' }; }
+    if (spf) {
+      var spfAligned = spf.mailfrom && fromOrg && orgDomain(spf.mailfrom) === fromOrg;
+      checks.spf = { result: spf.result, domain: spf.mailfrom, aligned: spfAligned };
+    }
+    /* DKIM: prefer a passing signature aligned with From, then any pass, then the first result */
+    if (auth && auth.dkim.length) {
+      var pass = auth.dkim.filter(function (d) { return d.result === 'pass'; });
+      var alignedPass = pass.filter(function (d) { return fromOrg && orgDomain(d.d) === fromOrg; });
+      var pick = alignedPass[0] || pass[0] || auth.dkim[0];
+      checks.dkim = { result: pick.result, domain: pick.d, aligned: !!(fromOrg && orgDomain(pick.d) === fromOrg), all: auth.dkim };
+    } else if (sigs.length) checks.dkim = { result: 'unverified', domain: sigs[0].d, aligned: !!(fromOrg && orgDomain(sigs[0].d) === fromOrg), all: [] };
+    /* DMARC */
+    if (auth && auth.dmarc) checks.dmarc = { result: auth.dmarc.result, policy: auth.dmarc.policy, action: auth.dmarc.action };
+
+    /* --- flags: things worth a second look --- */
+    if (!auth) flags.push({ level: 'warn', text: 'No Authentication-Results header. The receiving server did not record SPF, DKIM or DMARC checks — or the headers were pasted from a copy that lost them. Without these, the From address cannot be trusted either way.' });
+    if (from && replyTo && replyTo.addr && replyTo.addr !== from.addr) {
+      var sameOrg = orgDomain(replyTo.domain) === fromOrg;
+      flags.push({ level: sameOrg ? 'note' : 'bad', text: 'Replies go to ' + replyTo.addr + ', not to the From address' + (sameOrg ? ' — same organisation, so probably a shared inbox or an assistant.' : '. That is a different organisation entirely: a classic way to send mail that looks like it is from one place and collect the replies somewhere else.') });
+    }
+    if (from && rp && rp.domain && orgDomain(rp.domain) !== fromOrg) {
+      var listy = all(H, 'list-id').length || /^(bulk|list)$/i.test(first(H, 'precedence'));
+      flags.push({ level: listy || (checks.dmarc && checks.dmarc.result === 'pass') ? 'note' : 'warn', text: 'Bounces go back to ' + rp.domain + ', which is not the From domain.' + (listy ? ' Normal for a mailing list or a mail-sending service.' : ' Normal for newsletters and services that send on someone’s behalf; less normal for a personal message.') });
+    }
+    if (from && msgDom && orgDomain(msgDom) !== fromOrg && !/^(mail|smtp|mx)\./.test(msgDom)) flags.push({ level: 'note', text: 'The Message-ID was created at ' + msgDom + ', not at the From domain. This is where the message was actually composed or first handled.' });
+    if (from && from.name) {
+      var brandish = /\b([a-z0-9-]+\.(com|co\.uk|org|net|org\.uk|gov\.uk|ac\.uk))\b/i.exec(from.name);
+      if (brandish && orgDomain(brandish[1]) !== fromOrg) flags.push({ level: 'bad', text: 'The display name contains "' + brandish[1] + '" but the address is at ' + from.domain + '. Names are free text; the address is what counts.' });
+      if (/@/.test(from.name) && from.name.toLowerCase().indexOf(from.addr) < 0) flags.push({ level: 'bad', text: 'The display name looks like an email address (' + from.name + ') that is not the real one (' + from.addr + '). On a phone only the name shows, which is the point.' });
+    }
+    if (checks.spf && checks.spf.result === 'pass' && !checks.spf.aligned && !(checks.dmarc && checks.dmarc.result === 'pass')) flags.push({ level: 'warn', text: 'SPF passed for ' + checks.spf.domain + ', which is not the From domain. So a server was allowed to send for ' + checks.spf.domain + ' — that says nothing about ' + fromOrg + '.' });
+    if (checks.dkim && checks.dkim.result === 'pass' && !checks.dkim.aligned && !(checks.dmarc && checks.dmarc.result === 'pass')) flags.push({ level: 'warn', text: 'The signature that passed belongs to ' + checks.dkim.domain + ', not to the From domain ' + fromOrg + '. Anyone can sign a message with their own domain; it only vouches for the From line when the two match.' });
+    if (checks.dkim && checks.dkim.all && checks.dkim.result === 'pass' && checks.dkim.all.some(function (d) { return d.result === 'fail'; })) flags.push({ level: 'note', text: 'A second signature, from ' + checks.dkim.all.filter(function (d) { return d.result === 'fail'; }).map(function (d) { return d.d; }).join(' and ') + ', no longer verifies. That is what happens when a mailing list adds a footer or a tag to the subject after the sender signed it.' });
+    if (checks.dkim && checks.dkim.result === 'fail') flags.push({ level: 'warn', text: 'A DKIM signature was present but did not verify. Mailing lists and forwarders often break signatures by editing the message (adding a footer, changing the subject), so this is not proof of tampering on its own — look at ARC and DMARC.' });
+    var pri = first(H, 'x-priority') + ' ' + first(H, 'importance') + ' ' + first(H, 'x-msmail-priority');
+    if (/\b(1|2|high|highest|urgent)\b/i.test(pri)) flags.push({ level: 'note', text: 'Marked as high priority by the sender. Genuine urgent mail rarely needs the flag; pressure tactics usually do.' });
+    if (/urgent|immediate|action required|verify|suspended|final notice|update your|payment|invoice|password/i.test(subject) && !(checks.dmarc && checks.dmarc.result === 'pass')) flags.push({ level: 'note', text: 'The subject uses urgency or account language, and the checks do not fully back up the sender. That combination is the usual shape of phishing.' });
+    if (mailer && /phpmailer|swiftmailer|python|sendmail|mass|bulk|blast/i.test(mailer)) flags.push({ level: 'note', text: 'Sent with ' + mailer.split(' ')[0] + ', a scripting library rather than a mail program. Fine for automated notifications; odd for a personal message.' });
+    if (received.length) {
+      var firstHop = received[0], lastHop = received[received.length - 1];
+      if (date && lastHop.date && Math.abs(lastHop.date - date) > 86400000) flags.push({ level: 'warn', text: 'The Date header says it was written ' + span(Math.round(Math.abs(lastHop.date - date) / 1000)) + ' before it was delivered. Long gaps mean a queue, a very wrong clock, or a date that was made up.' });
+      for (var i = 1; i < received.length; i++) {
+        if (received[i].date && received[i - 1].date) {
+          var gap = (received[i].date - received[i - 1].date) / 1000;
+          if (gap > 1800) flags.push({ level: 'note', text: 'The message sat for ' + span(Math.round(gap)) + ' at ' + (received[i - 1].by || 'one server') + ' before moving on. Delays happen; large ones are worth noticing.' });
+          if (gap < -300) flags.push({ level: 'note', text: 'Server clocks disagree by ' + span(Math.round(-gap)) + ' between two hops. Usually a mis-set clock rather than anything sinister.' });
+        }
+      }
+      if (firstHop.from && !firstHop.tls && received.length > 1 && !firstHop.local) flags.push({ level: 'note', text: 'The first hop (' + firstHop.from + ' → ' + firstHop.by + ') was not encrypted.' });
+    } else flags.push({ level: 'warn', text: 'No Received headers at all, so there is no record of the route. Headers copied from a forwarded message or a screenshot often lose these.' });
+    if (arcPresent) flags.push({ level: 'note', text: 'ARC headers are present: the message was forwarded or came through a list, and the forwarder passed along the checks it saw. That is how a forwarded message can still pass DMARC.' });
+    if (auth && auth.compauth) flags.push({ level: 'note', text: 'Microsoft’s composite check (compauth) was ' + auth.compauth.result + (auth.compauth.reason ? ' with reason code ' + auth.compauth.reason : '') + '. Microsoft combines SPF, DKIM, DMARC and its own reputation data into this one result.' });
+    if (from && sender && sender.addr && sender.addr !== from.addr) flags.push({ level: 'note', text: 'Sent by ' + sender.addr + ' on behalf of the From address — an assistant, an app or a list acting for someone.' });
+
+    /* --- verdict --- */
+    var level, headline;
+    var dm = checks.dmarc && checks.dmarc.result, sp = checks.spf && checks.spf.result, dk = checks.dkim && checks.dkim.result;
+    var strongPass = dm === 'pass' || ((sp === 'pass' && checks.spf.aligned) && (dk === 'pass' && checks.dkim.aligned));
+    var anyPassAligned = (sp === 'pass' && checks.spf && checks.spf.aligned) || (dk === 'pass' && checks.dkim && checks.dkim.aligned);
+    var hardFail = dm === 'fail' || (sp === 'fail' && dk !== 'pass') || flags.some(function (f) { return f.level === 'bad'; });
+    if (hardFail) { level = 'bad'; headline = 'The headers contradict the sender this message claims to be.'; }
+    else if (strongPass || (anyPassAligned && !flags.some(function (f) { return f.level === 'warn'; }))) { level = 'ok'; headline = 'Nothing in the headers is inconsistent with the sender it claims to be.'; }
+    else { level = 'warn'; headline = 'The checks do not fully confirm the sender. Not proof of anything — but do not take the From line at face value.'; }
+
+    /* --- plain-English summary --- */
+    var S = [];
+    if (from) S.push('This message says it is from ' + (from.name ? '"' + from.name + '" at ' : '') + (from.addr || 'an unreadable address') + '.');
+    if (sp) {
+      var sd = checks.spf.domain || fromOrg;
+      S.push(sp === 'pass' ? 'The server that sent it was on the list ' + sd + ' publishes of servers allowed to send its mail (SPF passed' + (checks.spf.aligned ? ').' : ' — but for ' + sd + ', not the From domain).')
+        : sp === 'fail' ? 'The server that sent it is not one ' + sd + ' allows to send its mail (SPF failed).'
+        : sp === 'softfail' ? sd + ' says the sending server is probably not one of its own (SPF softfail).'
+        : sp === 'none' ? sd + ' publishes no list of allowed senders, so the sending server could not be checked (SPF none).'
+        : 'The sender check was inconclusive (SPF ' + sp + ').');
+    } else S.push('There is no record of the sending server being checked against the domain’s allowed list (no SPF result).');
+    if (dk) {
+      var dd = checks.dkim.domain || 'the sender';
+      S.push(dk === 'pass' ? 'It carries a valid digital signature from ' + dd + (checks.dkim.aligned ? ', which matches the From address (DKIM passed).' : ' — a different domain from the From address (DKIM passed, but not for the sender it claims).')
+        : dk === 'fail' ? 'It carries a signature from ' + dd + ' that no longer verifies (DKIM failed) — often the result of a list or forwarder altering the message.'
+        : dk === 'none' ? 'It carries no digital signature at all (DKIM none).'
+        : dk === 'unverified' ? 'It carries a signature from ' + dd + ', but the receiving server recorded no verdict on it.'
+        : 'The signature check was inconclusive (DKIM ' + dk + ').');
+    } else S.push('It carries no digital signature (no DKIM).');
+    if (dm) {
+      var viaArc = dm === 'pass' && arcPresent && !(checks.spf && checks.spf.aligned && sp === 'pass') && !(checks.dkim && checks.dkim.aligned && dk === 'pass');
+      S.push(dm === 'pass' ? (viaArc ? 'Even so, it satisfies ' + fromOrg + '’s published policy (DMARC passed), because the list or forwarder it came through vouched for the checks it saw before it altered the message (ARC).' : 'Taken together, the checks satisfy ' + fromOrg + '’s published policy (DMARC passed).')
+        : dm === 'fail' ? fromOrg + '’s published policy says mail like this should be ' + (checks.dmarc.policy === 'reject' ? 'rejected' : checks.dmarc.policy === 'quarantine' ? 'quarantined' : 'treated with suspicion') + ' (DMARC failed' + (checks.dmarc.action ? ', receiver action: ' + checks.dmarc.action : '') + ').'
+        : dm === 'none' ? fromOrg + ' publishes no DMARC policy, so there is no rule for what to do when the checks disagree.' : 'DMARC was ' + dm + '.');
+    }
+    if (received.length) {
+      var t0 = received[0].date, t1 = received[received.length - 1].date;
+      S.push('It passed through ' + received.length + ' mail server' + (received.length === 1 ? '' : 's') + (t0 && t1 && t1 >= t0 ? ' in ' + span(Math.round((t1 - t0) / 1000)) : '') + (received[0].from ? ', starting from ' + (received[0].from.replace(/^\[|\]$/g, '')) : '') + '.');
+    }
+    if (replyTo && replyTo.addr && from && replyTo.addr !== from.addr) S.push('Replies would go to ' + replyTo.addr + ' rather than to the From address.');
+    S.push(level === 'bad' ? 'Treat it as not from who it says it is.' : level === 'ok' ? 'That says nothing about whether any link or attachment inside is safe, or whether the account was in the right hands.' : 'If it asks you to do anything — click, pay, reply with details — confirm by another route first.');
+
+    return { H: H, from: from, replyTo: replyTo, sender: sender, rp: rp, to: to, subject: subject, date: date, msgid: msgid, msgDom: msgDom, mailer: mailer,
+      received: received, auth: auth, checks: checks, sigs: sigs, arc: arcPresent, flags: flags, level: level, headline: headline, summary: S, fromOrg: fromOrg };
+  }
+
+  /* ---------- rendering ---------- */
+  var badge = function (r) {
+    var cls = /^(pass)$/.test(r) ? 'v-ok' : /^(fail|reject)$/.test(r) ? 'v-bad' : 'v-warn';
+    return '<span class="' + cls + ' eh-badge">' + esc(r || 'none') + '</span>';
+  };
+  var lvlClass = { bad: 'v-bad', warn: 'v-warn', note: '' };
+  function render(a) {
+    var out = $('#ehOut'), sum = $('#ehSummary'), body = $('#ehBody');
+    sum.className = 'verify-summary ' + a.level;
+    sum.innerHTML = '<div>' + esc(a.headline) + '</div><p class="eh-sum">' + esc(a.summary.join(' ')) + '</p>';
+    var h = '';
+
+    /* who */
+    var rows = [];
+    var who = function (label, addr, note) { if (addr && addr.addr) rows.push([label, (addr.name ? esc(addr.name) + ' &lt;' + esc(addr.addr) + '&gt;' : esc(addr.addr)), note || '']); };
+    who('From', a.from, 'What the sender typed. Not checked on its own.');
+    who('Reply-To', a.replyTo, a.replyTo && a.from && a.replyTo.addr !== a.from.addr ? '<span class="v-warn">Different from the From address.</span>' : 'Where a reply goes.');
+    who('Sender', a.sender, 'Sent on behalf of the From address.');
+    who('Return-Path', a.rp, 'Where bounces go — set by the sending system, so a good clue to the real origin.');
+    if (a.to) rows.push(['To', esc(a.to), '']);
+    if (a.subject) rows.push(['Subject', esc(a.subject), '']);
+    if (a.date) rows.push(['Date', esc(fmt(a.date)) + ' <span class="eh-muted">(your local time)</span>', 'Set by the sender’s software; can be wrong or faked.']);
+    if (a.msgDom) rows.push(['Message created at', esc(a.msgDom), 'From the Message-ID. Usually the system where the message was first composed or handled.']);
+    if (a.mailer) rows.push(['Sent with', esc(a.mailer), 'The program or service that produced the message.']);
+    h += '<div class="result"><h3>Who it says it is from</h3><div class="tablewrap"><table class="eh-table"><tbody>' + rows.map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + r[1] + (r[2] ? '<div class="eh-muted">' + r[2] + '</div>' : '') + '</td></tr>'; }).join('') + '</tbody></table></div></div>';
+
+    /* checks */
+    var c = a.checks, cr = [];
+    var explain = {
+      spf: 'Does the domain say this server may send its mail? The domain publishes a list of allowed servers; the receiver checked the connecting server against it.',
+      dkim: 'Was the message signed with a key that belongs to a domain, and does the signature still verify? Proves the message was not altered since it was signed, and which domain signed it.',
+      dmarc: 'The domain’s own rule for what to do when SPF or DKIM do not line up with the From address, and the receiver’s verdict on whether this message satisfied it.'
+    };
+    var align = function (chk) { return chk.result === 'pass' && chk.domain ? (chk.aligned ? ' <span class="eh-ok">— matches the From domain</span>' : ' <span class="v-warn">— not the From domain</span>') : ''; };
+    cr.push(['SPF', c.spf ? badge(c.spf.result) + (c.spf.domain ? ' for <span class="mono">' + esc(c.spf.domain) + '</span>' : '') + align(c.spf) : '<span class="v-warn">not recorded</span>', explain.spf]);
+    var dkExtra = '';
+    if (c.dkim && c.dkim.all && c.dkim.all.length > 1) dkExtra = '<div class="eh-muted">All signatures seen: ' + c.dkim.all.map(function (d) { return esc(d.d || '?') + ' ' + esc(d.result); }).join(' · ') + '</div>';
+    var dkDom = c.dkim && c.dkim.domain && c.dkim.domain !== 'none' ? c.dkim.domain : '';
+    cr.push(['DKIM', c.dkim ? badge(c.dkim.result) + (dkDom ? ' signed by <span class="mono">' + esc(dkDom) + '</span>' : '') + (dkDom ? align(c.dkim) : '') + dkExtra : '<span class="v-warn">no signature</span>', explain.dkim]);
+    cr.push(['DMARC', c.dmarc ? badge(c.dmarc.result) + (c.dmarc.policy ? ' — the domain’s policy is <span class="mono">' + esc(c.dmarc.policy) + '</span>' : '') + (c.dmarc.action ? ', receiver action <span class="mono">' + esc(c.dmarc.action) + '</span>' : '') : '<span class="v-warn">not evaluated</span>', explain.dmarc]);
+    h += '<div class="result"><h3>Did it pass the checks?</h3>' + (a.auth ? '<p class="eh-muted">As recorded by <span class="mono">' + esc(a.auth.server) + '</span>, the server that received it.</p>' : '<p class="v-warn">No Authentication-Results header was found, so these could not be read.</p>') +
+      '<div class="tablewrap"><table class="eh-table"><tbody>' + cr.map(function (r) { return '<tr><th>' + r[0] + '</th><td>' + r[1] + '<div class="eh-muted">' + r[2] + '</div></td></tr>'; }).join('') + '</tbody></table></div></div>';
+
+    /* route */
+    if (a.received.length) {
+      var hr = '';
+      for (var i = 0; i < a.received.length; i++) {
+        var r = a.received[i], prev = i ? a.received[i - 1] : null;
+        var took = prev && prev.date && r.date ? span(Math.round((r.date - prev.date) / 1000)) : (i ? '?' : 'start');
+        var bare = r.from && r.from.replace(/^\[|\]$/g, '') === r.ip;
+        var fromCell = r.from ? (bare ? esc(r.ip) + (isPrivate(r.ip) ? ' <span class="eh-muted">(internal address, no hostname)</span>' : ' <span class="eh-muted">(no hostname given)</span>') : esc(r.from) + (r.ip ? ' <span class="eh-muted">[' + esc(r.ip) + (isPrivate(r.ip) ? ', internal address' : '') + ']</span>' : '')) : '<span class="eh-muted">not stated</span>';
+        hr += '<tr><td>' + (i + 1) + '</td><td>' + fromCell + '</td><td>' + esc(r.by || '?') + (r.auth ? ' <span class="eh-muted">(sender logged in)</span>' : '') + '</td><td>' + esc(r.date ? fmt(r.date) : r.dateRaw) + '</td><td>' + esc(took) + '</td><td>' + (r.tls ? '<span class="eh-ok">yes</span>' : '<span class="eh-muted">no / not stated</span>') + '</td></tr>';
+      }
+      h += '<div class="result"><h3>The route it took</h3><p class="eh-muted">Oldest first. Each row is one server handing the message to the next; "sender logged in" means the first server accepted it from an authenticated account, which is how legitimate mail from a person usually starts.</p><div class="tablewrap"><table class="eh-table"><thead><tr><th>#</th><th>From</th><th>Received by</th><th>When (your time)</th><th>Took</th><th>Encrypted</th></tr></thead><tbody>' + hr + '</tbody></table></div></div>';
+    }
+
+    /* flags */
+    var order = { bad: 0, warn: 1, note: 2 };
+    var fl = a.flags.slice().sort(function (x, y) { return order[x.level] - order[y.level]; });
+    h += '<div class="result"><h3>Worth a second look</h3>' + (fl.length ? '<ul class="resteps">' + fl.map(function (f) { return '<li class="' + (lvlClass[f.level] || '') + '">' + esc(f.text) + '</li>'; }).join('') + '</ul>' : '<p class="eh-ok">Nothing stood out.</p>') + '</div>';
+
+    /* every header */
+    h += '<details class="eh-all"><summary>Every header, explained (' + a.H.length + ')</summary><div class="tablewrap"><table class="eh-table"><tbody>' + a.H.map(function (x) {
+      var v = x.value.length > 220 ? x.value.slice(0, 220) + '…' : x.value;
+      return '<tr><th class="mono">' + esc(x.name) + '</th><td><span class="mono eh-val">' + esc(v) + '</span><div class="eh-muted">' + esc(gloss(x.name)) + '</div></td></tr>';
+    }).join('') + '</tbody></table></div></details>';
+
+    body.innerHTML = h; out.hidden = false; $('#ehCopy').hidden = false;
+    report = [a.headline, '', a.summary.join(' '), '', 'From: ' + (a.from ? a.from.raw : '-'), 'Reply-To: ' + (a.replyTo ? a.replyTo.raw : '-'), 'Return-Path: ' + (a.rp ? a.rp.addr : '-'),
+      'SPF: ' + (c.spf ? c.spf.result + ' (' + c.spf.domain + (c.spf.aligned ? ', aligned' : ', not aligned') + ')' : 'not recorded'),
+      'DKIM: ' + (c.dkim ? c.dkim.result + ' (' + c.dkim.domain + (c.dkim.aligned ? ', aligned' : ', not aligned') + ')' : 'none'),
+      'DMARC: ' + (c.dmarc ? c.dmarc.result + (c.dmarc.policy ? ' (p=' + c.dmarc.policy + ')' : '') : 'not evaluated'),
+      'Hops: ' + a.received.length, ''].concat(fl.map(function (f) { return '- [' + f.level + '] ' + f.text; })).join('\n');
+  }
+
+  function run() {
+    var t = $('#ehIn').value;
+    try { render(analyse(t)); }
+    catch (e) { $('#ehOut').hidden = false; $('#ehSummary').className = 'verify-summary bad'; $('#ehSummary').textContent = e.message || String(e); $('#ehBody').innerHTML = ''; $('#ehCopy').hidden = true; }
+  }
+  $('#ehRun').addEventListener('click', run);
+  $('#ehIn').addEventListener('keydown', function (e) { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') run(); });
+  document.querySelectorAll('#ehChips .chip').forEach(function (ch) { ch.addEventListener('click', function () { $('#ehIn').value = EX[ch.dataset.ex]; run(); }); });
+  $('#ehClear').addEventListener('click', function () { $('#ehIn').value = ''; $('#ehOut').hidden = true; $('#ehBody').innerHTML = ''; $('#ehCopy').hidden = true; report = ''; });
+  $('#ehCopy').addEventListener('click', function () {
+    var btn = $('#ehCopy'), done = function (m) { btn.textContent = m; setTimeout(function () { btn.textContent = 'Copy summary'; }, 1400); };
+    var fallback = function () { var ta = document.createElement('textarea'); ta.value = report; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done('Copied'); } catch (e) { done('Could not copy'); } ta.remove(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(report).then(function () { done('Copied'); }, fallback); else fallback();
+  });
 })();
 </script>
 
